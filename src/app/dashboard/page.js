@@ -41,18 +41,18 @@ export default function DashboardPage() {
           <div className="text-center">
             <div 
               className="inline-block w-8 h-8 border-4 border-t-transparent rounded-full animate-spin mb-2"
-              style={{ borderColor: '#B3C8CF', borderTopColor: 'transparent' }}
+              style={{ borderColor: 'var(--accent)', borderTopColor: 'transparent' }}
             />
-            <p style={{ color: '#F1F0E8' }}>Loading dashboard...</p>
+            <p style={{ color: 'var(--foreground)' }}>Loading dashboard...</p>
           </div>
         </div>
       ) : !stats ? (
-        <p style={{ color: '#F1F0E8' }}>No stats found</p>
+        <p style={{ color: 'var(--foreground)' }}>No stats found</p>
       ) : (
         <div className="p-8 space-y-8">
           <h1 
             className="text-3xl font-semibold tracking-tight"
-            style={{ color: '#F1F0E8' }}
+            style={{ color: 'var(--foreground)' }}
           >
             Dashboard
           </h1>
@@ -60,17 +60,17 @@ export default function DashboardPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div 
               className="p-6 rounded-xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
-              style={{ backgroundColor: '#B3C8CF' }}
+              style={{ backgroundColor: 'var(--accent)' }}
             >
               <h2 
                 className="text-xs uppercase tracking-wider font-semibold mb-2 opacity-80"
-                style={{ color: '#89A8B2' }}
+                style={{ color: 'var(--background)' }}
               >
                 Total Logs
               </h2>
               <p 
                 className="text-4xl font-bold"
-                style={{ color: '#F1F0E8' }}
+                style={{ color: 'var(--foreground)' }}
               >
                 {stats.totalLogs}
               </p>
@@ -78,17 +78,17 @@ export default function DashboardPage() {
 
             <div 
               className="p-6 rounded-xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
-              style={{ backgroundColor: '#E5E1DA' }}
+              style={{ backgroundColor: 'var(--accent)' }}
             >
               <h2 
                 className="text-xs uppercase tracking-wider font-semibold mb-2 opacity-80"
-                style={{ color: '#89A8B2' }}
+                style={{ color: 'var(--background)' }}
               >
                 Success Rate
               </h2>
               <p 
                 className="text-4xl font-bold"
-                style={{ color: '#89A8B2' }}
+                style={{ color: 'var(--background)' }}
               >
                 {stats.successRate}%
               </p>
@@ -96,17 +96,17 @@ export default function DashboardPage() {
 
             <div 
               className="p-6 rounded-xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
-              style={{ backgroundColor: '#B3C8CF' }}
+              style={{ backgroundColor: 'var(--accent)' }}
             >
               <h2 
                 className="text-xs uppercase tracking-wider font-semibold mb-2 opacity-80"
-                style={{ color: '#89A8B2' }}
+                style={{ color: 'var(--background)' }}
               >
                 Errors
               </h2>
               <p 
                 className="text-4xl font-bold"
-                style={{ color: '#F1F0E8' }}
+                style={{ color: 'var(--foreground)' }}
               >
                 {stats.errorLogs}
               </p>
@@ -115,41 +115,41 @@ export default function DashboardPage() {
 
           <div 
             className="rounded-xl p-6 shadow-lg"
-            style={{ backgroundColor: '#E5E1DA' }}
+            style={{ backgroundColor: 'var(--accent)' }}
           >
             <h3 
               className="text-lg font-semibold mb-4"
-              style={{ color: '#89A8B2' }}
+              style={{ color: 'var(--background)' }}
             >
               Last 7 Days Activity
             </h3>
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={stats.last7Days}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#B3C8CF" opacity={0.3} />
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--accent)" opacity={0.3} />
                 <XAxis 
                   dataKey="_id" 
-                  stroke="#89A8B2"
+                  stroke="var(--background)"
                   style={{ fontSize: '12px' }}
                 />
                 <YAxis 
-                  stroke="#89A8B2"
+                  stroke="var(--background)"
                   style={{ fontSize: '12px' }}
                 />
                 <Tooltip 
                   contentStyle={{ 
-                    backgroundColor: '#89A8B2',
+                    backgroundColor: 'var(--background)',
                     border: 'none',
                     borderRadius: '8px',
-                    color: '#F1F0E8'
+                    color: 'var(--foreground)'
                   }}
                 />
                 <Line 
                   type="monotone" 
                   dataKey="count" 
-                  stroke="#89A8B2" 
+                  stroke="var(--background)" 
                   strokeWidth={3}
-                  dot={{ fill: '#B3C8CF', r: 4 }}
-                  activeDot={{ r: 6, fill: '#E5E1DA' }}
+                  dot={{ fill: 'var(--accent)', r: 4 }}
+                  activeDot={{ r: 6, fill: 'var(--accent)' }}
                 />
               </LineChart>
             </ResponsiveContainer>

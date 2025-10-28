@@ -1,7 +1,7 @@
 export default function MailAccountCard({ account }) {
   const statusColors = {
-    active: { bg: '#B3C8CF', text: '#F1F0E8' },
-    paused: { bg: '#E5E1DA', text: '#89A8B2' },
+    active: { bg: 'var(--accent)', text: 'var(--foreground)' },
+    paused: { bg: 'var(--accent)', text: 'var(--background)' },
     error: { bg: '#d1d5db', text: '#6b7280' },
   };
 
@@ -11,14 +11,14 @@ export default function MailAccountCard({ account }) {
     <div 
       className="rounded-xl p-5 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-102"
       style={{
-        backgroundColor: '#E5E1DA',
-        border: '1px solid rgba(179, 200, 207, 0.3)'
+        backgroundColor: 'var(--accent)',
+        border: '1px solid rgba(220, 207, 192, 0.3)'
       }}
     >
       <div className="flex items-center justify-between mb-3">
         <h3 
           className="font-semibold text-lg"
-          style={{ color: '#89A8B2' }}
+          style={{ color: 'var(--background)' }}
         >
           {account.email}
         </h3>
@@ -35,14 +35,14 @@ export default function MailAccountCard({ account }) {
 
       <p 
         className="text-sm opacity-80 mb-3"
-        style={{ color: '#89A8B2' }}
+        style={{ color: 'var(--background)' }}
       >
         Connected on {new Date(account.createdAt).toLocaleDateString()}
       </p>
 
       <button 
         className="text-sm font-medium transition-all duration-300 hover:underline hover:translate-x-1 inline-flex items-center gap-1"
-        style={{ color: '#89A8B2' }}
+        style={{ color: 'var(--background)' }}
       >
         View Logs
         <span className="text-xs">→</span>

@@ -20,14 +20,14 @@ export default function Navbar() {
     <header 
       className="flex items-center justify-between px-6 py-4 shadow-md backdrop-blur-sm border-b"
       style={{ 
-        backgroundColor: 'rgba(179, 200, 207, 0.3)',
-        borderBottomColor: 'rgba(241, 240, 232, 0.2)'
+        backgroundColor: 'rgba(220, 207, 192, 0.3)',
+        borderBottomColor: 'rgba(220, 207, 192, 0.2)'
       }}
     >
       <h1 
         className="text-xl font-bold tracking-tight transition-all duration-300 hover:scale-105"
         style={{ 
-          color: '#F1F0E8',
+          color: 'var(--foreground)',
           textShadow: '0 2px 4px rgba(0,0,0,0.1)'
         }}
       >
@@ -39,11 +39,11 @@ export default function Navbar() {
           <>
             <div 
               className="flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300"
-              style={{ backgroundColor: 'rgba(229, 225, 218, 0.2)' }}
+              style={{ backgroundColor: 'rgba(220, 207, 192, 0.2)' }}
             >
               <span 
                 className="text-sm font-medium"
-                style={{ color: '#F1F0E8' }}
+                style={{ color: 'var(--foreground)' }}
               >
                 Hello, <b className="font-semibold">{user.name || user.email}</b>
               </span>
@@ -53,12 +53,12 @@ export default function Navbar() {
               onClick={onLogout}
               className="text-sm font-medium rounded-lg px-4 py-2 border-2 transition-all duration-300 hover:scale-105 hover:shadow-lg"
               style={{ 
-                color: '#F1F0E8',
-                borderColor: '#E5E1DA',
+                color: 'var(--foreground)',
+                borderColor: 'var(--accent)',
                 backgroundColor: 'transparent'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(229, 225, 218, 0.2)';
+                e.currentTarget.style.backgroundColor = 'rgba(220, 207, 192, 0.2)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.backgroundColor = 'transparent';
@@ -70,7 +70,7 @@ export default function Navbar() {
         ) : (
           <span 
             className="text-sm opacity-70"
-            style={{ color: '#F1F0E8' }}
+            style={{ color: 'var(--foreground)' }}
           >
             Not signed in
           </span>

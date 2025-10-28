@@ -29,18 +29,18 @@ export default function LoginPage() {
     <div className="flex items-center justify-center min-h-screen p-6">
       <div 
         className="max-w-md w-full p-8 rounded-xl shadow-xl"
-        style={{ backgroundColor: '#E5E1DA' }}
+        style={{ backgroundColor: 'var(--accent)' }}
       >
         <div className="text-center mb-6">
           <h1 
             className="text-3xl font-bold mb-2"
-            style={{ color: '#89A8B2' }}
+            style={{ color: 'var(--background)' }}
           >
             Welcome back
           </h1>
           <p 
             className="text-sm opacity-80"
-            style={{ color: '#89A8B2' }}
+            style={{ color: 'var(--background)' }}
           >
             Sign in to your account to continue
           </p>
@@ -63,7 +63,7 @@ export default function LoginPage() {
           <div>
             <label 
               className="block text-sm font-medium mb-2"
-              style={{ color: '#89A8B2' }}
+              style={{ color: 'var(--background)' }}
             >
               Email
             </label>
@@ -71,14 +71,14 @@ export default function LoginPage() {
               className="w-full rounded-lg px-4 py-2.5 transition-all duration-200 focus:outline-none focus:ring-2"
               style={{
                 backgroundColor: 'white',
-                border: '2px solid #B3C8CF',
-                color: '#89A8B2'
+                border: '2px solid var(--accent)',
+                color: 'var(--background)'
               }}
               onFocus={(e) => {
-                e.target.style.borderColor = '#89A8B2';
+                e.target.style.borderColor = 'var(--background)';
               }}
               onBlur={(e) => {
-                e.target.style.borderColor = '#B3C8CF';
+                e.target.style.borderColor = 'var(--accent)';
               }}
               placeholder="you@example.com"
               type="email"
@@ -91,7 +91,7 @@ export default function LoginPage() {
           <div>
             <label 
               className="block text-sm font-medium mb-2"
-              style={{ color: '#89A8B2' }}
+              style={{ color: 'var(--background)' }}
             >
               Password
             </label>
@@ -99,14 +99,14 @@ export default function LoginPage() {
               className="w-full rounded-lg px-4 py-2.5 transition-all duration-200 focus:outline-none focus:ring-2"
               style={{
                 backgroundColor: 'white',
-                border: '2px solid #B3C8CF',
-                color: '#89A8B2'
+                border: '2px solid var(--accent)',
+                color: 'var(--background)'
               }}
               onFocus={(e) => {
-                e.target.style.borderColor = '#89A8B2';
+                e.target.style.borderColor = 'var(--background)';
               }}
               onBlur={(e) => {
-                e.target.style.borderColor = '#B3C8CF';
+                e.target.style.borderColor = 'var(--accent)';
               }}
               placeholder="••••••••"
               type="password"
@@ -119,8 +119,8 @@ export default function LoginPage() {
           <button 
             className="w-full rounded-lg px-4 py-3 font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
             style={{
-              backgroundColor: '#B3C8CF',
-              color: '#F1F0E8'
+              backgroundColor: 'var(--accent)',
+              color: 'var(--foreground)'
             }}
             disabled={loading}
           >
@@ -130,13 +130,13 @@ export default function LoginPage() {
 
         <p 
           className="text-sm text-center mt-6"
-          style={{ color: '#89A8B2' }}
+          style={{ color: 'var(--background)' }}
         >
           No account?{' '}
           <Link 
             className="font-semibold underline underline-offset-4 transition-all duration-200 hover:opacity-70"
             href="/auth/register"
-            style={{ color: '#89A8B2' }}
+            style={{ color: 'var(--background)' }}
           >
             Create one
           </Link>

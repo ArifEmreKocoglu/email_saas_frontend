@@ -34,7 +34,7 @@ export default function MailAccountsPage() {
         <div className="flex items-center justify-between">
           <h1 
             className="text-3xl font-semibold tracking-tight"
-            style={{ color: '#F1F0E8' }}
+            style={{ color: 'var(--foreground)' }}
           >
             Mail Accounts
           </h1>
@@ -43,8 +43,8 @@ export default function MailAccountsPage() {
               href={connectUrl} 
               className="inline-block px-5 py-2.5 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
               style={{ 
-                backgroundColor: '#E5E1DA',
-                color: '#89A8B2'
+                backgroundColor: 'var(--accent)',
+                color: 'var(--background)'
               }}
             >
               Connect Gmail
@@ -53,9 +53,9 @@ export default function MailAccountsPage() {
               onClick={load}
               className="px-4 py-2.5 rounded-lg border-2 font-medium transition-all duration-300 hover:scale-105"
               style={{
-                borderColor: '#B3C8CF',
+                borderColor: 'var(--accent)',
                 backgroundColor: 'transparent',
-                color: '#F1F0E8'
+                color: 'var(--foreground)'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = 'rgba(179, 200, 207, 0.15)';
@@ -75,17 +75,17 @@ export default function MailAccountsPage() {
             <div className="text-center">
               <div 
                 className="inline-block w-8 h-8 border-4 border-t-transparent rounded-full animate-spin mb-2"
-                style={{ borderColor: '#B3C8CF', borderTopColor: 'transparent' }}
+                style={{ borderColor: 'var(--accent)', borderTopColor: 'transparent' }}
               />
-              <p style={{ color: '#F1F0E8' }}>Loading accounts...</p>
+              <p style={{ color: 'var(--foreground)' }}>Loading accounts...</p>
             </div>
           </div>
         ) : data.items.length === 0 ? (
           <div 
             className="text-center py-12 rounded-xl"
             style={{ 
-              backgroundColor: 'rgba(229, 225, 218, 0.2)',
-              color: '#F1F0E8'
+              backgroundColor: 'rgba(220, 207, 192, 0.2)',
+              color: 'var(--foreground)'
             }}
           >
             <p className="text-lg">No accounts connected yet</p>
@@ -98,28 +98,28 @@ export default function MailAccountsPage() {
                 key={acc.email} 
                 className="p-5 rounded-xl shadow-lg transition-all duration-300 hover:scale-102 hover:shadow-xl"
                 style={{
-                  backgroundColor: '#E5E1DA',
-                  border: '1px solid rgba(179, 200, 207, 0.3)'
+                  backgroundColor: 'var(--accent)',
+                  border: '1px solid rgba(220, 207, 192, 0.3)'
                 }}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex-1">
                     <div 
                       className="font-semibold text-lg mb-1"
-                      style={{ color: '#89A8B2' }}
+                      style={{ color: 'var(--background)' }}
                     >
                       {acc.email}
                     </div>
                     <div 
                       className="text-sm opacity-80 mb-2"
-                      style={{ color: '#89A8B2' }}
+                      style={{ color: 'var(--background)' }}
                     >
                       {acc.provider} • connected {new Date(acc.connectedAt).toLocaleString()}
                     </div>
                     {acc.watchExpiration && (
                       <div 
                         className="text-xs opacity-70 mb-1"
-                        style={{ color: '#89A8B2' }}
+                        style={{ color: 'var(--background)' }}
                       >
                         Watch expires: {new Date(acc.watchExpiration).toLocaleString()}
                       </div>
@@ -127,7 +127,7 @@ export default function MailAccountsPage() {
                     {acc.lastHistoryId && (
                       <div 
                         className="text-xs opacity-60 font-mono"
-                        style={{ color: '#89A8B2' }}
+                        style={{ color: 'var(--background)' }}
                       >
                         lastHistoryId: {String(acc.lastHistoryId).slice(0, 12)}…
                       </div>
@@ -140,8 +140,8 @@ export default function MailAccountsPage() {
                         : "shadow-sm"
                     }`}
                     style={{
-                      backgroundColor: acc.status === "active" ? '#B3C8CF' : '#d1d5db',
-                      color: acc.status === "active" ? '#F1F0E8' : '#6b7280'
+                      backgroundColor: acc.status === "active" ? 'var(--accent)' : '#d1d5db',
+                      color: acc.status === "active" ? 'var(--foreground)' : '#6b7280'
                     }}
                   >
                     {acc.status}

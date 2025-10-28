@@ -17,25 +17,25 @@ export default function Sidebar() {
     <aside 
       className="w-56 flex flex-col shadow-xl border-r backdrop-blur-sm" 
       style={{ 
-        backgroundColor: 'rgba(179, 200, 207, 0.3)',
-        borderRightColor: 'rgba(241, 240, 232, 0.2)'
+        backgroundColor: 'rgba(220, 207, 192, 0.3)',
+        borderRightColor: 'rgba(220, 207, 192, 0.2)'
       }}
     >
       {/* Header with subtle animation */}
       <div 
         className="px-6 py-6 border-b border-opacity-20 transform transition-all duration-300 hover:scale-105" 
-        style={{ borderColor: 'rgba(241, 240, 232, 0.2)' }}
+        style={{ borderColor: 'rgba(220, 207, 192, 0.2)' }}
       >
         <h2 
           className="text-2xl font-bold tracking-wide" 
           style={{ 
-            color: '#F1F0E8',
+            color: 'var(--foreground)',
             textShadow: '0 2px 4px rgba(0,0,0,0.1)'
           }}
         >
           Entrfy
         </h2>
-        <p className="text-xs mt-1 opacity-80" style={{ color: '#F1F0E8' }}>
+        <p className="text-xs mt-1 opacity-80" style={{ color: 'var(--foreground)' }}>
           Mail Management
         </p>
       </div>
@@ -58,7 +58,7 @@ export default function Sidebar() {
                   isActive ? 'shadow-lg' : ''
                 }`}
                 style={{
-                  color: '#F1F0E8',
+                  color: 'var(--foreground)',
                   backgroundColor: isActive 
                     ? 'rgba(229, 225, 218, 0.3)' 
                     : 'transparent',
@@ -70,7 +70,7 @@ export default function Sidebar() {
                     <span 
                       className="absolute -bottom-1 left-0 h-0.5 w-full"
                       style={{ 
-                        backgroundColor: '#E5E1DA',
+                        backgroundColor: 'var(--accent)',
                         animation: 'slideRight 0.3s ease-out'
                       }}
                     />
@@ -95,8 +95,8 @@ export default function Sidebar() {
         <div 
           className="rounded-lg p-3 border border-opacity-20"
           style={{ 
-            borderColor: '#E5E1DA',
-            backgroundColor: 'rgba(229, 225, 218, 0.2)'
+            borderColor: 'var(--accent)',
+            backgroundColor: 'rgba(220, 207, 192, 0.2)'
           }}
         >
           <div className="flex items-center gap-2">
@@ -104,7 +104,7 @@ export default function Sidebar() {
               className="w-2 h-2 rounded-full animate-pulse"
               style={{ backgroundColor: '#4ade80' }}
             />
-            <span className="text-xs font-medium" style={{ color: '#F1F0E8' }}>
+            <span className="text-xs font-medium" style={{ color: 'var(--foreground)' }}>
               System Online
             </span>
           </div>
@@ -115,8 +115,8 @@ export default function Sidebar() {
       <div 
         className="border-t border-opacity-20 p-4 text-xs text-center transition-all duration-300 hover:bg-opacity-10" 
         style={{ 
-          borderColor: 'rgba(241, 240, 232, 0.2)', 
-          color: '#F1F0E8',
+          borderColor: 'rgba(220, 207, 192, 0.2)', 
+          color: 'var(--foreground)',
           backgroundColor: 'transparent'
         }}
       >

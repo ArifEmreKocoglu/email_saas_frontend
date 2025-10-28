@@ -30,7 +30,7 @@ export default function LogsPage() {
       <div className="p-8 space-y-6">
         <h1 
           className="text-3xl font-semibold tracking-tight"
-          style={{ color: '#F1F0E8' }}
+          style={{ color: 'var(--foreground)' }}
         >
           Logs
         </h1>
@@ -40,17 +40,17 @@ export default function LogsPage() {
             <div className="text-center">
               <div 
                 className="inline-block w-8 h-8 border-4 border-t-transparent rounded-full animate-spin mb-2"
-                style={{ borderColor: '#B3C8CF', borderTopColor: 'transparent' }}
+                style={{ borderColor: 'var(--accent)', borderTopColor: 'transparent' }}
               />
-              <p style={{ color: '#F1F0E8' }}>Loading logs...</p>
+              <p style={{ color: 'var(--foreground)' }}>Loading logs...</p>
             </div>
           </div>
         ) : data.items.length === 0 ? (
           <div 
             className="text-center py-12 rounded-xl"
             style={{ 
-              backgroundColor: 'rgba(229, 225, 218, 0.2)',
-              color: '#F1F0E8'
+              backgroundColor: 'rgba(220, 207, 192, 0.2)',
+              color: 'var(--foreground)'
             }}
           >
             <p className="text-lg">No logs yet</p>
@@ -63,21 +63,21 @@ export default function LogsPage() {
                 key={log._id} 
                 className="p-5 rounded-xl shadow-lg transition-all duration-300 hover:scale-102 hover:shadow-xl"
                 style={{
-                  backgroundColor: '#E5E1DA',
-                  border: '1px solid rgba(179, 200, 207, 0.3)'
+                  backgroundColor: 'var(--accent)',
+                  border: '1px solid rgba(220, 207, 192, 0.3)'
                 }}
               >
                 <div className="flex items-center justify-between">
                   <div className="space-y-1 flex-1">
                     <div 
                       className="font-semibold text-lg"
-                      style={{ color: '#89A8B2' }}
+                      style={{ color: 'var(--background)' }}
                     >
                       {log.subject || "(no subject)"}
                     </div>
                     <div 
                       className="text-sm opacity-80"
-                      style={{ color: '#89A8B2' }}
+                      style={{ color: 'var(--background)' }}
                     >
                       {log.email} • {log.workflowName} • {log.duration || "-"}
                     </div>
@@ -85,8 +85,8 @@ export default function LogsPage() {
                   <span
                     className={`px-3 py-1.5 rounded-lg text-sm font-semibold shadow-sm`}
                     style={{
-                      backgroundColor: log.status === "success" ? '#B3C8CF' : '#d1d5db',
-                      color: log.status === "success" ? '#F1F0E8' : '#6b7280'
+                      backgroundColor: log.status === "success" ? 'var(--accent)' : '#d1d5db',
+                      color: log.status === "success" ? 'var(--foreground)' : '#6b7280'
                     }}
                   >
                     {log.status}
@@ -101,9 +101,9 @@ export default function LogsPage() {
           <button
             className="px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
             style={{
-              backgroundColor: '#E5E1DA',
-              color: '#89A8B2',
-              border: '1px solid rgba(179, 200, 207, 0.3)'
+              backgroundColor: 'var(--accent)',
+              color: 'var(--background)',
+              border: '1px solid rgba(220, 207, 192, 0.3)'
             }}
             disabled={data.page <= 1 || loading}
             onClick={() => load(data.page - 1)}
@@ -112,16 +112,16 @@ export default function LogsPage() {
           </button>
           <span 
             className="text-sm font-medium px-4"
-            style={{ color: '#F1F0E8' }}
+            style={{ color: 'var(--foreground)' }}
           >
             Page {data.page}
           </span>
           <button
             className="px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
             style={{
-              backgroundColor: '#E5E1DA',
-              color: '#89A8B2',
-              border: '1px solid rgba(179, 200, 207, 0.3)'
+              backgroundColor: 'var(--accent)',
+              color: 'var(--background)',
+              border: '1px solid rgba(220, 207, 192, 0.3)'
             }}
             disabled={!data.hasMore || loading}
             onClick={() => load(data.page + 1)}
