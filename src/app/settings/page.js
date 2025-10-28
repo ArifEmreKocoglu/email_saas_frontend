@@ -48,7 +48,7 @@ export default function SettingsPage() {
             border: '1px solid rgba(220, 207, 192, 0.3)'
           }}
         >
-          <div className="pb-4 border-b" style={{ borderColor: 'rgba(137, 168, 178, 0.2)' }}>
+          <div className="pb-4 border-b" style={{ borderColor: 'var(--background)' }}>
             <p 
               className="text-sm font-medium mb-1 opacity-70"
               style={{ color: 'var(--background)' }}
@@ -63,7 +63,7 @@ export default function SettingsPage() {
             </p>
           </div>
 
-          <div className="pb-4 border-b" style={{ borderColor: 'rgba(137, 168, 178, 0.2)' }}>
+          <div className="pb-4 border-b" style={{ borderColor: 'var(--background)' }}>
             <p 
               className="text-sm font-medium mb-1 opacity-70"
               style={{ color: 'var(--background)' }}
@@ -96,7 +96,7 @@ export default function SettingsPage() {
                 className="px-3 py-1 rounded-full text-xs font-semibold"
                 style={{ 
                   backgroundColor: 'var(--accent)',
-                  color: 'var(--foreground)'
+                  color: 'var(--background)'
                 }}
               >
                 Active
@@ -104,17 +104,17 @@ export default function SettingsPage() {
             </div>
           </div>
 
-          <div className="pt-4 border-t" style={{ borderColor: 'var(--accent)' }}>
+          <div className="pt-4 border-t" style={{ borderColor: 'var(--background)' }}>
             <p 
               className="text-sm font-medium mb-2 opacity-70"
-              style={{ color: 'var(--foreground)' }}
+              style={{ color: 'var(--background)' }}
             >
               Theme
             </p>
             <div className="flex items-center justify-between">
               <p 
                 className="text-lg font-semibold"
-                style={{ color: 'var(--foreground)' }}
+                style={{ color: 'var(--background)' }}
               >
                 {theme === 'light' ? 'Light Mode' : 'Dark Mode'}
               </p>
@@ -122,7 +122,7 @@ export default function SettingsPage() {
                 onClick={toggleTheme}
                 className="px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:scale-105"
                 style={{
-                  backgroundColor: 'var(--accent)',
+                  backgroundColor: 'var(--background)',
                   color: 'var(--foreground)'
                 }}
               >
