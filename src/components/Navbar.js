@@ -17,24 +17,63 @@ export default function Navbar() {
   };
 
   return (
-    <header className="flex items-center justify-between bg-white border-b border-gray-200 px-6 py-3">
-      <h1 className="text-lg font-semibold text-gray-800">Entrfy Dashboard</h1>
+    <header 
+      className="flex items-center justify-between px-6 py-4 shadow-md backdrop-blur-sm border-b"
+      style={{ 
+        backgroundColor: 'rgba(179, 200, 207, 0.3)',
+        borderBottomColor: 'rgba(241, 240, 232, 0.2)'
+      }}
+    >
+      <h1 
+        className="text-xl font-bold tracking-tight transition-all duration-300 hover:scale-105"
+        style={{ 
+          color: '#F1F0E8',
+          textShadow: '0 2px 4px rgba(0,0,0,0.1)'
+        }}
+      >
+        Entrfy Dashboard
+      </h1>
 
       <div className="flex items-center gap-4">
         {user ? (
           <>
-            <span className="text-sm text-gray-600">
-              Hello, <b>{user.name || user.email}</b> 👋
-            </span>
+            <div 
+              className="flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300"
+              style={{ backgroundColor: 'rgba(229, 225, 218, 0.2)' }}
+            >
+              <span 
+                className="text-sm font-medium"
+                style={{ color: '#F1F0E8' }}
+              >
+                Hello, <b className="font-semibold">{user.name || user.email}</b>
+              </span>
+              <span className="text-lg">👋</span>
+            </div>
             <button
               onClick={onLogout}
-              className="text-sm text-gray-600 hover:text-black border border-gray-300 rounded-md px-3 py-1"
+              className="text-sm font-medium rounded-lg px-4 py-2 border-2 transition-all duration-300 hover:scale-105 hover:shadow-lg"
+              style={{ 
+                color: '#F1F0E8',
+                borderColor: '#E5E1DA',
+                backgroundColor: 'transparent'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(229, 225, 218, 0.2)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'transparent';
+              }}
             >
               Logout
             </button>
           </>
         ) : (
-          <span className="text-sm text-gray-500">Not signed in</span>
+          <span 
+            className="text-sm opacity-70"
+            style={{ color: '#F1F0E8' }}
+          >
+            Not signed in
+          </span>
         )}
       </div>
     </header>
