@@ -49,7 +49,7 @@ export default function LogsPage() {
           <div 
             className="text-center py-12 rounded-xl"
             style={{ 
-              backgroundColor: 'rgba(220, 207, 192, 0.2)',
+              backgroundColor: 'var(--accent-hover)',
               color: 'var(--foreground)'
             }}
           >
@@ -64,7 +64,7 @@ export default function LogsPage() {
                 className="p-5 rounded-xl shadow-lg transition-all duration-300 hover:scale-102 hover:shadow-xl"
                 style={{
                   backgroundColor: 'var(--accent)',
-                  border: '1px solid rgba(220, 207, 192, 0.3)'
+                  border: '1px solid var(--accent-light)'
                 }}
               >
                 <div className="flex items-center justify-between">
@@ -103,7 +103,7 @@ export default function LogsPage() {
             style={{
               backgroundColor: 'var(--accent)',
               color: 'var(--background)',
-              border: '1px solid rgba(220, 207, 192, 0.3)'
+              border: '1px solid var(--accent-light)'
             }}
             disabled={data.page <= 1 || loading}
             onClick={() => load(data.page - 1)}
@@ -121,7 +121,7 @@ export default function LogsPage() {
             style={{
               backgroundColor: 'var(--accent)',
               color: 'var(--background)',
-              border: '1px solid rgba(220, 207, 192, 0.3)'
+              border: '1px solid var(--accent-light)'
             }}
             disabled={!data.hasMore || loading}
             onClick={() => load(data.page + 1)}

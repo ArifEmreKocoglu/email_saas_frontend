@@ -45,7 +45,7 @@ export default function SettingsPage() {
           className="p-6 rounded-xl shadow-lg space-y-6"
           style={{ 
             backgroundColor: 'var(--accent)',
-            border: '1px solid rgba(220, 207, 192, 0.3)'
+            border: '1px solid var(--accent-light)'
           }}
         >
           <div className="pb-4 border-b" style={{ borderColor: 'var(--background)' }}>

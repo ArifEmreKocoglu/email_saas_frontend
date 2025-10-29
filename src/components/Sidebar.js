@@ -17,14 +17,14 @@ export default function Sidebar() {
     <aside 
       className="w-56 flex flex-col shadow-xl border-r backdrop-blur-sm" 
       style={{ 
-        backgroundColor: 'rgba(220, 207, 192, 0.3)',
-        borderRightColor: 'rgba(220, 207, 192, 0.2)'
+        backgroundColor: 'var(--accent-light)',
+        borderRightColor: 'var(--accent-hover)'
       }}
     >
       {/* Header with subtle animation */}
       <div 
         className="px-6 py-6 border-b border-opacity-20 transform transition-all duration-300 hover:scale-105" 
-        style={{ borderColor: 'rgba(220, 207, 192, 0.2)' }}
+        style={{ borderColor: 'var(--accent-hover)' }}
       >
         <h2 
           className="text-2xl font-bold tracking-wide" 
@@ -96,7 +96,7 @@ export default function Sidebar() {
           className="rounded-lg p-3 border border-opacity-20"
           style={{ 
             borderColor: 'var(--accent)',
-            backgroundColor: 'rgba(220, 207, 192, 0.2)'
+            backgroundColor: 'var(--accent-hover)'
           }}
         >
           <div className="flex items-center gap-2">
@@ -115,7 +115,7 @@ export default function Sidebar() {
       <div 
         className="border-t border-opacity-20 p-4 text-xs text-center transition-all duration-300 hover:bg-opacity-10" 
         style={{ 
-          borderColor: 'rgba(220, 207, 192, 0.2)', 
+          borderColor: 'var(--accent-hover)', 
           color: 'var(--foreground)',
           backgroundColor: 'transparent'
         }}

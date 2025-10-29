@@ -20,8 +20,8 @@ export default function Navbar() {
     <header 
       className="flex items-center justify-between px-6 py-4 shadow-md backdrop-blur-sm border-b"
       style={{ 
-        backgroundColor: 'rgba(220, 207, 192, 0.3)',
-        borderBottomColor: 'rgba(220, 207, 192, 0.2)'
+        backgroundColor: 'var(--accent-light)',
+        borderBottomColor: 'var(--accent-hover)'
       }}
     >
       <h1 
@@ -39,7 +39,7 @@ export default function Navbar() {
           <>
             <div 
               className="flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300"
-              style={{ backgroundColor: 'rgba(220, 207, 192, 0.2)' }}
+              style={{ backgroundColor: 'var(--accent-hover)' }}
             >
               <span 
                 className="text-sm font-medium"
@@ -58,7 +58,7 @@ export default function Navbar() {
                 backgroundColor: 'transparent'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(220, 207, 192, 0.2)';
+                e.currentTarget.style.backgroundColor = 'var(--accent-hover)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.backgroundColor = 'transparent';

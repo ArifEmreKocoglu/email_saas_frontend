@@ -12,7 +12,7 @@ export default function MailAccountCard({ account }) {
       className="rounded-xl p-5 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-102"
       style={{
         backgroundColor: 'var(--accent)',
-        border: '1px solid rgba(220, 207, 192, 0.3)'
+        border: '1px solid var(--accent-light)'
       }}
     >
       <div className="flex items-center justify-between mb-3">

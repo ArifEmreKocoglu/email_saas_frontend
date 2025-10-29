@@ -50,9 +50,9 @@ export default function RegisterPage() {
           <div 
             className="mb-4 p-3 rounded-lg text-sm font-medium"
             style={{ 
-              backgroundColor: 'rgba(239, 68, 68, 0.1)',
-              color: '#ef4444',
-              border: '1px solid rgba(239, 68, 68, 0.3)'
+              backgroundColor: 'var(--error-bg)',
+              color: 'var(--error)',
+              border: '1px solid var(--error-border)'
             }}
           >
             {err}

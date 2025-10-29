@@ -39,7 +39,7 @@ export default function AuthCallbackPage() {
           </h1>
           <p 
             className="text-red-600 font-medium"
-            style={{ color: '#ef4444' }}
+            style={{ color: 'var(--error)' }}
           >
             {msg || "Unknown error"}
           </p>

@@ -4,12 +4,32 @@
   --background: #FAF9EE;
   --accent: #DCCFC0;
   --foreground: #A2AF9B;
+  
+  /* Derived colors */
+  --accent-hover: rgba(220, 207, 192, 0.2);
+  --accent-light: rgba(220, 207, 192, 0.3);
+  --border: rgba(220, 207, 192, 0.3);
+  --success: #B3C8CF;
+  --success-text: #F1F0E8;
+  --error: #ef4444;
+  --error-bg: rgba(239, 68, 68, 0.1);
+  --error-border: rgba(239, 68, 68, 0.3);
 }
 
 [data-theme="dark"] {
   --background: #A2AF9B;
   --accent: #DCCFC0;
   --foreground: #FAF9EE;
+  
+  /* Derived colors stay same or adjust as needed */
+  --accent-hover: rgba(220, 207, 192, 0.2);
+  --accent-light: rgba(220, 207, 192, 0.3);
+  --border: rgba(220, 207, 192, 0.3);
+  --success: #B3C8CF;
+  --success-text: #FAF9EE;
+  --error: #ef4444;
+  --error-bg: rgba(239, 68, 68, 0.1);
+  --error-border: rgba(239, 68, 68, 0.3);
 }
 
 @theme inline {
