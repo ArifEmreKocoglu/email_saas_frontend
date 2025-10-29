@@ -26,7 +26,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-6">
+    <div className="flex items-center justify-center h-full p-6">
       <div 
         className="max-w-md w-full p-8 rounded-xl shadow-xl"
         style={{ backgroundColor: 'var(--accent)' }}

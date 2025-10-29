@@ -47,7 +47,7 @@ export default function LogsPage() {
           </div>
         ) : data.items.length === 0 ? (
           <div 
-            className="text-center py-12 rounded-xl"
+            className="text-center py-12 rounded-xl shadow"
             style={{ 
               backgroundColor: 'var(--accent-hover)',
               color: 'var(--foreground)'
