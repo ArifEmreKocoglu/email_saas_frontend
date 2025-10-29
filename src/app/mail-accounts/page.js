@@ -44,7 +44,7 @@ export default function MailAccountsPage() {
               className="inline-block px-5 py-2.5 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
               style={{ 
                 backgroundColor: 'var(--accent)',
-                color: 'var(--background)'
+                color: 'var(--foreground)'
               }}
             >
               Connect Gmail
@@ -106,20 +106,20 @@ export default function MailAccountsPage() {
                   <div className="flex-1">
                     <div 
                       className="font-semibold text-lg mb-1"
-                      style={{ color: 'var(--background)' }}
+                      style={{ color: 'var(--foreground)' }}
                     >
                       {acc.email}
                     </div>
                     <div 
                       className="text-sm opacity-80 mb-2"
-                      style={{ color: 'var(--background)' }}
+                      style={{ color: 'var(--foreground)' }}
                     >
                       {acc.provider} • connected {new Date(acc.connectedAt).toLocaleString()}
                     </div>
                     {acc.watchExpiration && (
                       <div 
                         className="text-xs opacity-70 mb-1"
-                        style={{ color: 'var(--background)' }}
+                        style={{ color: 'var(--foreground)' }}
                       >
                         Watch expires: {new Date(acc.watchExpiration).toLocaleString()}
                       </div>
@@ -127,7 +127,7 @@ export default function MailAccountsPage() {
                     {acc.lastHistoryId && (
                       <div 
                         className="text-xs opacity-60 font-mono"
-                        style={{ color: 'var(--background)' }}
+                        style={{ color: 'var(--foreground)' }}
                       >
                         lastHistoryId: {String(acc.lastHistoryId).slice(0, 12)}…
                       </div>
@@ -136,7 +136,7 @@ export default function MailAccountsPage() {
                   <span
                     className="px-3 py-1.5 rounded-full text-sm font-semibold shadow-sm flex items-center gap-1.5"
                     style={{
-                      backgroundColor: acc.status === "active" ? 'var(--success)' : acc.status === "paused" ? '#fbbf24' : 'var(--error)',
+                      backgroundColor: acc.status === "active" ? 'var(--background)' : acc.status === "paused" ? '#fbbf24' : 'var(--error)',
                       color: acc.status === "active" ? 'var(--foreground)' : acc.status === "paused" ? '#78350f' : 'white'
                     }}
                   >

@@ -102,7 +102,7 @@ export default function LogsPage() {
             className="px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
             style={{
               backgroundColor: 'var(--accent)',
-              color: 'var(--background)',
+              color: 'var(--foreground)',
               border: '1px solid var(--accent-light)'
             }}
             disabled={data.page <= 1 || loading}
@@ -120,7 +120,7 @@ export default function LogsPage() {
             className="px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
             style={{
               backgroundColor: 'var(--accent)',
-              color: 'var(--background)',
+              color: 'var(--foreground)',
               border: '1px solid var(--accent-light)'
             }}
             disabled={!data.hasMore || loading}

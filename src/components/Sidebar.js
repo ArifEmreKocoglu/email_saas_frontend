@@ -15,16 +15,16 @@ export default function Sidebar() {
 
   return (
     <aside 
-      className="w-56 flex flex-col shadow-xl border-r backdrop-blur-sm" 
+      className="w-56 flex flex-col shadow-xl backdrop-blur-sm" 
       style={{ 
         backgroundColor: 'var(--accent-light)',
-        borderRightColor: 'var(--accent-hover)'
+        boxShadow: '2px 0 10px rgba(0, 0, 0, 0.1)'
       }}
     >
       {/* Header with subtle animation */}
       <div 
-        className="px-6 py-6 border-b border-opacity-20 transform transition-all duration-300 hover:scale-105" 
-        style={{ borderColor: 'var(--accent-hover)' }}
+        className="px-6 py-6 transform transition-all duration-300 hover:scale-105" 
+        style={{ borderColor: 'var(--accent-hover)' , boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'}}
       >
         <h2 
           className="text-2xl font-bold tracking-wide" 
@@ -60,7 +60,7 @@ export default function Sidebar() {
                 style={{
                   color: 'var(--foreground)',
                   backgroundColor: isActive 
-                    ? 'rgba(229, 225, 218, 0.3)' 
+                    ? 'var(--accent-light)' 
                     : 'transparent',
                 }}
               >
@@ -81,10 +81,10 @@ export default function Sidebar() {
               {/* Hover effect overlay */}
               <div 
                 className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                style={{
-                  backgroundColor: 'rgba(229, 225, 218, 0.15)',
-                }}
-              />
+              //   style={{
+              //     backgroundColor: 'rgba(229, 225, 218, 0.15)',
+              //   }}
+             />
             </Link>
           );
         })}

@@ -51,13 +51,13 @@ export default function SettingsPage() {
           <div className="pb-4 border-b" style={{ borderColor: 'var(--background)' }}>
             <p 
               className="text-sm font-medium mb-1 opacity-70"
-              style={{ color: 'var(--background)' }}
+              style={{ color: 'var(--foreground)' }}
             >
               Name
             </p>
             <p 
               className="text-lg font-semibold"
-              style={{ color: 'var(--background)' }}
+              style={{ color: 'var(--foreground)' }}
             >
               {user.name || "-"}
             </p>
@@ -66,13 +66,13 @@ export default function SettingsPage() {
           <div className="pb-4 border-b" style={{ borderColor: 'var(--background)' }}>
             <p 
               className="text-sm font-medium mb-1 opacity-70"
-              style={{ color: 'var(--background)' }}
+              style={{ color: 'var(--foreground)' }}
             >
               Email
             </p>
             <p 
               className="text-lg font-semibold"
-              style={{ color: 'var(--background)' }}
+              style={{ color: 'var(--foreground)' }}
             >
               {user.email}
             </p>
@@ -81,14 +81,14 @@ export default function SettingsPage() {
           <div>
             <p 
               className="text-sm font-medium mb-1 opacity-70"
-              style={{ color: 'var(--background)' }}
+              style={{ color: 'var(--foreground)' }}
             >
               Plan
             </p>
             <div className="flex items-center gap-2">
               <p 
                 className="text-lg font-semibold"
-                style={{ color: 'var(--background)' }}
+                style={{ color: 'var(--foreground)' }}
               >
                 {user.plan || "Free"}
               </p>
@@ -111,14 +111,14 @@ export default function SettingsPage() {
           <div className="pt-4 border-t" style={{ borderColor: 'var(--background)' }}>
             <p 
               className="text-sm font-medium mb-2 opacity-70"
-              style={{ color: 'var(--background)' }}
+              style={{ color: 'var(--foreground)' }}
             >
               Theme
             </p>
             <div className="flex items-center gap-3">
               <p 
                 className="text-lg font-semibold"
-                style={{ color: 'var(--background)' }}
+                style={{ color: 'var(--foreground)' }}
               >
                 {theme === 'light' ? 'Light Mode' : 'Dark Mode'}
               </p>

@@ -64,7 +64,7 @@ export default function DashboardPage() {
             >
               <h2 
                 className="text-xs uppercase tracking-wider font-semibold mb-2 opacity-80"
-                style={{ color: 'var(--background)' }}
+                style={{ color: 'var(--foreground)' }}
               >
                 Total Logs
               </h2>
@@ -82,7 +82,7 @@ export default function DashboardPage() {
             >
               <h2 
                 className="text-xs uppercase tracking-wider font-semibold mb-2 opacity-80"
-                style={{ color: 'var(--background)' }}
+                style={{ color: 'var(--foreground)' }}
               >
                 Success Rate
               </h2>
@@ -100,7 +100,7 @@ export default function DashboardPage() {
             >
               <h2 
                 className="text-xs uppercase tracking-wider font-semibold mb-2 opacity-80"
-                style={{ color: 'var(--background)' }}
+                style={{ color: 'var(--foreground)' }}
               >
                 Errors
               </h2>
@@ -119,7 +119,7 @@ export default function DashboardPage() {
           >
             <h3 
               className="text-lg font-semibold mb-4"
-              style={{ color: 'var(--background)' }}
+              style={{ color: 'var(--foreground)' }}
             >
               Last 7 Days Activity
             </h3>
@@ -128,11 +128,11 @@ export default function DashboardPage() {
                 <CartesianGrid strokeDasharray="3 3" stroke="var(--accent)" opacity={0.3} />
                 <XAxis 
                   dataKey="_id" 
-                  stroke="var(--background)"
+                  stroke="var(--foreground)"
                   style={{ fontSize: '12px' }}
                 />
                 <YAxis 
-                  stroke="var(--background)"
+                  stroke="var(--foreground)"
                   style={{ fontSize: '12px' }}
                 />
                 <Tooltip 
@@ -146,7 +146,7 @@ export default function DashboardPage() {
                 <Line 
                   type="monotone" 
                   dataKey="count" 
-                  stroke="var(--background)" 
+                  stroke="var(--foreground)" 
                   strokeWidth={3}
                   dot={{ fill: 'var(--accent)', r: 4 }}
                   activeDot={{ r: 6, fill: 'var(--accent)' }}

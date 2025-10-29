@@ -18,10 +18,10 @@ export default function Navbar() {
 
   return (
     <header 
-      className="flex items-center justify-between px-6 py-4 shadow-md backdrop-blur-sm border-b"
+      className="flex items-center justify-between px-6 py-4 shadow-md backdrop-blur-sm"
       style={{ 
         backgroundColor: 'var(--accent-light)',
-        borderBottomColor: 'var(--accent-hover)'
+        boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)'
       }}
     >
       <h1 
@@ -51,7 +51,7 @@ export default function Navbar() {
             </div>
             <button
               onClick={onLogout}
-              className="text-sm font-medium rounded-lg px-4 py-2 border-2 transition-all duration-300 hover:scale-105 hover:shadow-lg"
+              className="text-sm font-medium shadow rounded-lg px-4 py-2 border-2 transition-all duration-300 hover:scale-105 hover:shadow-lg"
               style={{ 
                 color: 'var(--foreground)',
                 borderColor: 'var(--accent)',

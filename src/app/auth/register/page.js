@@ -34,13 +34,13 @@ export default function RegisterPage() {
         <div className="text-center mb-6">
           <h1 
             className="text-3xl font-bold mb-2"
-            style={{ color: 'var(--background)' }}
+            style={{ color: 'var(--foreground)' }}
           >
             Create your account
           </h1>
           <p 
             className="text-sm opacity-80"
-            style={{ color: 'var(--background)' }}
+            style={{ color: 'var(--foreground)' }}
           >
             Get started with Entrfy Mail SaaS
           </p>
@@ -63,16 +63,18 @@ export default function RegisterPage() {
           <div>
             <label 
               className="block text-sm font-medium mb-2"
-              style={{ color: 'var(--background)' }}
+              style={{ color: 'var(--foreground)' }}
             >
               Name
             </label>
             <input
               className="w-full rounded-lg px-4 py-2.5 transition-all duration-200 focus:outline-none focus:ring-2"
               style={{
-                backgroundColor: 'white',
+                backgroundColor: 'var(--background)',
                 border: '2px solid var(--accent)',
-                color: 'var(--background)'
+                color: 'var(--background)',
+                WebkitBoxShadow: '0 0 0 1000px var(--foreground) inset',
+                WebkitTextFillColor: 'var(--background)'
               }}
               onFocus={(e) => {
                 e.target.style.borderColor = 'var(--background)';
@@ -90,16 +92,18 @@ export default function RegisterPage() {
           <div>
             <label 
               className="block text-sm font-medium mb-2"
-              style={{ color: 'var(--background)' }}
+              style={{ color: 'var(--foreground)' }}
             >
               Email
             </label>
             <input
               className="w-full rounded-lg px-4 py-2.5 transition-all duration-200 focus:outline-none focus:ring-2"
               style={{
-                backgroundColor: 'white',
+                backgroundColor: 'var(--background)',
                 border: '2px solid var(--accent)',
-                color: 'var(--background)'
+                color: 'var(--background)',
+                WebkitBoxShadow: '0 0 0 1000px var(--foreground) inset',
+                WebkitTextFillColor: 'var(--background)'
               }}
               onFocus={(e) => {
                 e.target.style.borderColor = 'var(--background)';
@@ -118,16 +122,18 @@ export default function RegisterPage() {
           <div>
             <label 
               className="block text-sm font-medium mb-2"
-              style={{ color: 'var(--background)' }}
+              style={{ color: 'var(--foreground)' }}
             >
               Password
             </label>
             <input
               className="w-full rounded-lg px-4 py-2.5 transition-all duration-200 focus:outline-none focus:ring-2"
               style={{
-                backgroundColor: 'white',
+                backgroundColor: 'var(--background)',
                 border: '2px solid var(--accent)',
-                color: 'var(--background)'
+                color: 'var(--background)',
+                WebkitBoxShadow: '0 0 0 1000px var(--foreground) inset',
+                WebkitTextFillColor: 'var(--background)'
               }}
               onFocus={(e) => {
                 e.target.style.borderColor = 'var(--background)';
@@ -144,27 +150,29 @@ export default function RegisterPage() {
             />
           </div>
 
-          <button 
-            className="w-full rounded-lg px-4 py-3 font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-            style={{
-              backgroundColor: 'var(--accent)',
-              color: 'var(--foreground)'
-            }}
-            disabled={loading}
-          >
-            {loading ? 'Creating account...' : 'Sign up'}
-          </button>
+          <div className="flex justify-center">
+            <button 
+              className="rounded-lg px-6 py-3 shadow font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+              style={{
+                backgroundColor: 'var(--accent)',
+                color: 'var(--foreground)'
+              }}
+              disabled={loading}
+            >
+              {loading ? 'Creating account...' : 'Sign up'}
+            </button>
+          </div>
         </form>
 
         <p 
           className="text-sm text-center mt-6"
-          style={{ color: 'var(--background)' }}
+          style={{ color: 'var(--foreground)' }}
         >
           Already have an account?{' '}
           <Link 
             className="font-semibold underline underline-offset-4 transition-all duration-200 hover:opacity-70"
             href="/auth/login"
-            style={{ color: 'var(--background)' }}
+            style={{ color: 'var(--foreground)' }}
           >
             Sign in
           </Link>
