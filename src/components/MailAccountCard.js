@@ -1,11 +1,11 @@
 export default function MailAccountCard({ account }) {
   const statusColors = {
-    active: { bg: 'var(--accent)', text: 'var(--foreground)' },
-    paused: { bg: 'var(--accent)', text: 'var(--background)' },
-    error: { bg: '#d1d5db', text: '#6b7280' },
+    active: { bg: 'var(--success)', text: 'var(--success-text)', label: 'Active' },
+    paused: { bg: '#fbbf24', text: '#78350f', label: 'Paused' },
+    error: { bg: 'var(--error)', text: 'white', label: 'Error' },
   };
 
-  const status = statusColors[account.status] || { bg: '#d1d5db', text: '#6b7280' };
+  const status = statusColors[account.status] || { bg: '#d1d5db', text: '#6b7280', label: account.status };
 
   return (
     <div 
@@ -23,13 +23,17 @@ export default function MailAccountCard({ account }) {
           {account.email}
         </h3>
         <span
-          className="text-xs px-3 py-1.5 rounded-lg font-semibold shadow-sm"
+          className="text-xs px-3 py-1.5 rounded-full font-semibold shadow-sm flex items-center gap-1.5"
           style={{
             backgroundColor: status.bg,
             color: status.text
           }}
         >
-          {account.status}
+          <span 
+            className="w-1.5 h-1.5 rounded-full animate-pulse"
+            style={{ backgroundColor: status.text }}
+          />
+          {status.label}
         </span>
       </div>
 

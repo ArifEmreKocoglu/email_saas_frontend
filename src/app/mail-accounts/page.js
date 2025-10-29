@@ -134,17 +134,19 @@ export default function MailAccountsPage() {
                     )}
                   </div>
                   <span
-                    className={`px-3 py-1.5 rounded-lg text-sm font-semibold ${
-                      acc.status === "active"
-                        ? "shadow-sm"
-                        : "shadow-sm"
-                    }`}
+                    className="px-3 py-1.5 rounded-full text-sm font-semibold shadow-sm flex items-center gap-1.5"
                     style={{
-                      backgroundColor: acc.status === "active" ? 'var(--accent)' : '#d1d5db',
-                      color: acc.status === "active" ? 'var(--foreground)' : '#6b7280'
+                      backgroundColor: acc.status === "active" ? 'var(--success)' : acc.status === "paused" ? '#fbbf24' : 'var(--error)',
+                      color: acc.status === "active" ? 'var(--foreground)' : acc.status === "paused" ? '#78350f' : 'white'
                     }}
                   >
-                    {acc.status}
+                    <span 
+                      className="w-1.5 h-1.5 rounded-full animate-pulse"
+                      style={{ 
+                        backgroundColor: acc.status === "active" ? 'var(--success-text)' : acc.status === "paused" ? '#78350f' : 'white'
+                      }}
+                    />
+                    {acc.status.charAt(0).toUpperCase() + acc.status.slice(1)}
                   </span>
                 </div>
               </div>

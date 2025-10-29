@@ -9,8 +9,8 @@
   --accent-hover: rgba(220, 207, 192, 0.2);
   --accent-light: rgba(220, 207, 192, 0.3);
   --border: rgba(220, 207, 192, 0.3);
-  --success: #B3C8CF;
-  --success-text: #F1F0E8;
+  --success: #FAF9EE;
+  --success-text: #1eff00;
   --error: #ef4444;
   --error-bg: rgba(239, 68, 68, 0.1);
   --error-border: rgba(239, 68, 68, 0.3);
@@ -25,8 +25,8 @@
   --accent-hover: rgba(220, 207, 192, 0.2);
   --accent-light: rgba(220, 207, 192, 0.3);
   --border: rgba(220, 207, 192, 0.3);
-  --success: #B3C8CF;
-  --success-text: #FAF9EE;
+  --success: #A2AF9B;
+  --success-text: #82f373;
   --error: #ef4444;
   --error-bg: rgba(239, 68, 68, 0.1);
   --error-border: rgba(239, 68, 68, 0.3);

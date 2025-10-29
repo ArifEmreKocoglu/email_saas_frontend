@@ -93,12 +93,16 @@ export default function SettingsPage() {
                 {user.plan || "Free"}
               </p>
               <span 
-                className="px-3 py-1 rounded-full text-xs font-semibold"
+                className="px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1.5"
                 style={{ 
-                  backgroundColor: 'var(--accent)',
-                  color: 'var(--background)'
+                  backgroundColor: 'var(--background)',
+                  color: 'var(--foreground)'
                 }}
               >
+                <span 
+                  className="w-1.5 h-1.5 rounded-full animate-pulse"
+                  style={{ backgroundColor: 'var(--success-text)' }}
+                />
                 Active
               </span>
             </div>
