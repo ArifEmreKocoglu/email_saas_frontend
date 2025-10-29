@@ -115,7 +115,7 @@ export default function SettingsPage() {
             >
               Theme
             </p>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
               <p 
                 className="text-lg font-semibold"
                 style={{ color: 'var(--background)' }}
@@ -124,13 +124,18 @@ export default function SettingsPage() {
               </p>
               <button
                 onClick={toggleTheme}
-                className="px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:scale-105"
+                className="relative inline-flex h-6 w-11 items-center rounded-full transition-all duration-300"
                 style={{
-                  backgroundColor: 'var(--background)',
-                  color: 'var(--foreground)'
+                  backgroundColor: theme === 'dark' ? 'var(--background)' : 'rgba(162, 175, 155, 0.3)'
                 }}
               >
-                Switch to {theme === 'light' ? 'Dark' : 'Light'}
+                <span
+                  className="inline-block h-4 w-4 transform rounded-full transition-transform duration-300"
+                  style={{
+                    backgroundColor: 'var(--foreground)',
+                    transform: theme === 'dark' ? 'translateX(24px)' : 'translateX(4px)'
+                  }}
+                />
               </button>
             </div>
           </div>

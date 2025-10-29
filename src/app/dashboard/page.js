@@ -88,7 +88,7 @@ export default function DashboardPage() {
               </h2>
               <p 
                 className="text-4xl font-bold"
-                style={{ color: 'var(--background)' }}
+                style={{ color: 'var(--foreground)' }}
               >
                 {stats.successRate}%
               </p>
