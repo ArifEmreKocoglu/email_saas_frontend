@@ -37,41 +37,120 @@ export default function DashboardPage() {
   return (
     <RequireAuth>
       {loading ? (
-        <p className="text-center mt-10">Loading dashboard...</p>
+        <div className="flex items-center justify-center mt-10">
+          <div className="text-center">
+            <div 
+              className="inline-block w-8 h-8 border-4 border-t-transparent rounded-full animate-spin mb-2"
+              style={{ borderColor: 'var(--accent)', borderTopColor: 'transparent' }}
+            />
+            <p style={{ color: 'var(--foreground)' }}>Loading dashboard...</p>
+          </div>
+        </div>
       ) : !stats ? (
-        <p>No stats found</p>
+        <p style={{ color: 'var(--foreground)' }}>No stats found</p>
       ) : (
         <div className="p-8 space-y-8">
-          <h1 className="text-2xl font-semibold">Dashboard</h1>
+          <h1 
+            className="text-3xl font-semibold tracking-tight"
+            style={{ color: 'var(--foreground)' }}
+          >
+            Dashboard
+          </h1>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 rounded-xl bg-gradient-to-br from-cyan-400 to-teal-500 text-white">
-              <h2 className="text-sm uppercase">Total Logs</h2>
-              <p className="text-3xl font-bold">{stats.totalLogs}</p>
+            <div 
+              className="p-6 rounded-xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
+              style={{ backgroundColor: 'var(--accent)' }}
+            >
+              <h2 
+                className="text-xs uppercase tracking-wider font-semibold mb-2 opacity-80"
+                style={{ color: 'var(--foreground)' }}
+              >
+                Total Logs
+              </h2>
+              <p 
+                className="text-4xl font-bold"
+                style={{ color: 'var(--foreground)' }}
+              >
+                {stats.totalLogs}
+              </p>
             </div>
 
-            <div className="p-6 rounded-xl bg-gradient-to-br from-emerald-400 to-green-600 text-white">
-              <h2 className="text-sm uppercase">Success Rate</h2>
-              <p className="text-3xl font-bold">{stats.successRate}%</p>
+            <div 
+              className="p-6 rounded-xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
+              style={{ backgroundColor: 'var(--accent)' }}
+            >
+              <h2 
+                className="text-xs uppercase tracking-wider font-semibold mb-2 opacity-80"
+                style={{ color: 'var(--foreground)' }}
+              >
+                Success Rate
+              </h2>
+              <p 
+                className="text-4xl font-bold"
+                style={{ color: 'var(--foreground)' }}
+              >
+                {stats.successRate}%
+              </p>
             </div>
 
-            <div className="p-6 rounded-xl bg-gradient-to-br from-rose-400 to-red-600 text-white">
-              <h2 className="text-sm uppercase">Errors</h2>
-              <p className="text-3xl font-bold">{stats.errorLogs}</p>
+            <div 
+              className="p-6 rounded-xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
+              style={{ backgroundColor: 'var(--accent)' }}
+            >
+              <h2 
+                className="text-xs uppercase tracking-wider font-semibold mb-2 opacity-80"
+                style={{ color: 'var(--foreground)' }}
+              >
+                Errors
+              </h2>
+              <p 
+                className="text-4xl font-bold"
+                style={{ color: 'var(--foreground)' }}
+              >
+                {stats.errorLogs}
+              </p>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow">
-            <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-100">
+          <div 
+            className="rounded-xl p-6 shadow-lg"
+            style={{ backgroundColor: 'var(--accent)' }}
+          >
+            <h3 
+              className="text-lg font-semibold mb-4"
+              style={{ color: 'var(--foreground)' }}
+            >
               Last 7 Days Activity
             </h3>
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={stats.last7Days}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#ccc" />
-                <XAxis dataKey="_id" />
-                <YAxis />
-                <Tooltip />
-                <Line type="monotone" dataKey="count" stroke="#06b6d4" strokeWidth={2} />
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--accent)" opacity={0.3} />
+                <XAxis 
+                  dataKey="_id" 
+                  stroke="var(--foreground)"
+                  style={{ fontSize: '12px' }}
+                />
+                <YAxis 
+                  stroke="var(--foreground)"
+                  style={{ fontSize: '12px' }}
+                />
+                <Tooltip 
+                  contentStyle={{ 
+                    backgroundColor: 'var(--background)',
+                    border: 'none',
+                    borderRadius: '8px',
+                    color: 'var(--foreground)'
+                  }}
+                />
+                <Line 
+                  type="monotone" 
+                  dataKey="count" 
+                  stroke="var(--foreground)" 
+                  strokeWidth={3}
+                  dot={{ fill: 'var(--accent)', r: 4 }}
+                  activeDot={{ r: 6, fill: 'var(--accent)' }}
+                />
               </LineChart>
             </ResponsiveContainer>
           </div>

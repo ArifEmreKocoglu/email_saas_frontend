@@ -14,33 +14,138 @@ export default function Sidebar() {
   ];
 
   return (
-    <aside className="w-64 bg-white border-r border-gray-200 flex flex-col">
-      <div className="px-6 py-5 border-b border-gray-100">
-        <h2 className="text-xl font-bold text-gray-800">Entrfy</h2>
+    <aside 
+      className="w-56 flex flex-col shadow-xl backdrop-blur-sm" 
+      style={{ 
+        backgroundColor: 'var(--accent-light)',
+        boxShadow: '2px 0 10px rgba(0, 0, 0, 0.1)'
+      }}
+    >
+      {/* Header with subtle animation */}
+      <div 
+        className="px-6 py-6 transform transition-all duration-300 hover:scale-105" 
+        style={{ borderColor: 'var(--accent-hover)' , boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'}}
+      >
+        <h2 
+          className="text-2xl font-bold tracking-wide" 
+          style={{ 
+            color: 'var(--foreground)',
+            textShadow: '0 2px 4px rgba(0,0,0,0.1)'
+          }}
+        >
+          Entrfy
+        </h2>
+        <p className="text-xs mt-1 opacity-80" style={{ color: 'var(--foreground)' }}>
+          Mail Management
+        </p>
       </div>
 
+      {/* Navigation with enhanced animations */}
       <nav className="flex-1 p-4 space-y-2">
-        {links.map((link) => {
+        {links.map((link, index) => {
           const isActive = pathname === link.href;
           return (
             <Link
               key={link.href}
               href={link.href}
-              className={`block px-4 py-2 rounded-md text-sm font-medium transition ${
-                isActive
-                  ? "bg-blue-600 text-white"
-                  : "text-gray-700 hover:bg-gray-100"
-              }`}
+              className="group block relative overflow-hidden rounded-lg transition-all duration-300 ease-in-out transform hover:translate-x-1"
+              style={{
+                animation: `slideIn 0.3s ease-out ${index * 0.1}s backwards`,
+              }}
             >
-              {link.label}
+              <div
+                className={`flex items-center px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
+                  isActive ? 'shadow-lg' : ''
+                }`}
+                style={{
+                  color: 'var(--foreground)',
+                  backgroundColor: isActive 
+                    ? 'var(--accent-light)' 
+                    : 'transparent',
+                }}
+              >
+                <span className="relative">
+                  {link.label}
+                  {isActive && (
+                    <span 
+                      className="absolute -bottom-1 left-0 h-0.5 w-full"
+                      style={{ 
+                        backgroundColor: 'var(--accent)',
+                        animation: 'slideRight 0.3s ease-out'
+                      }}
+                    />
+                  )}
+                </span>
+              </div>
+              
+              {/* Hover effect overlay */}
+              <div 
+                className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+              //   style={{
+              //     backgroundColor: 'rgba(229, 225, 218, 0.15)',
+              //   }}
+             />
             </Link>
           );
         })}
       </nav>
 
-      <div className="border-t border-gray-100 p-4 text-xs text-gray-500">
-        Entrfy Mail SaaS © {new Date().getFullYear()}
+      {/* Status indicator */}
+      <div className="px-4 pb-4">
+        <div 
+          className="rounded-lg p-3 border border-opacity-20"
+          style={{ 
+            borderColor: 'var(--accent)',
+            backgroundColor: 'var(--accent-hover)'
+          }}
+        >
+          <div className="flex items-center gap-2">
+            <div 
+              className="w-2 h-2 rounded-full animate-pulse"
+              style={{ backgroundColor: '#4ade80' }}
+            />
+            <span className="text-xs font-medium" style={{ color: 'var(--foreground)' }}>
+              System Online
+            </span>
+          </div>
+        </div>
       </div>
+
+      {/* Footer with hover effect */}
+      <div 
+        className="border-t border-opacity-20 p-4 text-xs text-center transition-all duration-300 hover:bg-opacity-10" 
+        style={{ 
+          borderColor: 'var(--accent-hover)', 
+          color: 'var(--foreground)',
+          backgroundColor: 'transparent'
+        }}
+      >
+        <p className="font-medium">Entrfy Mail SaaS</p>
+        <p className="opacity-70 mt-1">© {new Date().getFullYear()}</p>
+      </div>
+
+      {/* CSS Animations */}
+      <style jsx>{`
+        @keyframes slideIn {
+          from {
+            opacity: 0;
+            transform: translateX(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes slideRight {
+          from {
+            width: 0;
+          }
+          to {
+            width: 100%;
+          }
+        }
+      `}</style>
     </aside>
   );
 }

@@ -9,48 +9,175 @@ export default function RegisterPage() {
   const router = useRouter();
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [err, setErr] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = async (e) => {
     e.preventDefault();
     setErr("");
+    setLoading(true);
     try {
       await register(form.email, form.password, form.name);
       router.replace("/mail-accounts");
     } catch (e) {
       setErr(e.message || "Failed");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="max-w-md mx-auto mt-12 p-6 bg-white rounded-xl shadow">
-      <h1 className="text-2xl font-semibold mb-4">Create your account</h1>
-      {err && <p className="text-red-600 mb-3">{err}</p>}
-      <form onSubmit={onSubmit} className="space-y-3">
-        <input
-          className="w-full border rounded px-3 py-2"
-          placeholder="Name"
-          value={form.name}
-          onChange={(e) => setForm({ ...form, name: e.target.value })}
-        />
-        <input
-          className="w-full border rounded px-3 py-2"
-          placeholder="Email"
-          type="email"
-          value={form.email}
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-        />
-        <input
-          className="w-full border rounded px-3 py-2"
-          placeholder="Password (min 6)"
-          type="password"
-          value={form.password}
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
-        />
-        <button className="w-full bg-black text-white rounded px-4 py-2">Sign up</button>
-      </form>
-      <p className="text-sm text-gray-600 mt-3">
-        Already have an account? <Link className="text-blue-600" href="/auth/login">Sign in</Link>
-      </p>
+    <div className="flex items-center justify-center h-full p-6">
+      <div 
+        className="max-w-md w-full p-8 rounded-xl shadow-xl"
+        style={{ backgroundColor: 'var(--accent)' }}
+      >
+        <div className="text-center mb-6">
+          <h1 
+            className="text-3xl font-bold mb-2"
+            style={{ color: 'var(--foreground)' }}
+          >
+            Create your account
+          </h1>
+          <p 
+            className="text-sm opacity-80"
+            style={{ color: 'var(--foreground)' }}
+          >
+            Get started with Entrfy Mail SaaS
+          </p>
+        </div>
+
+        {err && (
+          <div 
+            className="mb-4 p-3 rounded-lg text-sm font-medium"
+            style={{ 
+              backgroundColor: 'var(--error-bg)',
+              color: 'var(--error)',
+              border: '1px solid var(--error-border)'
+            }}
+          >
+            {err}
+          </div>
+        )}
+
+        <form onSubmit={onSubmit} className="space-y-4">
+          <div>
+            <label 
+              className="block text-sm font-medium mb-2"
+              style={{ color: 'var(--foreground)' }}
+            >
+              Name
+            </label>
+            <input
+              className="w-full rounded-lg px-4 py-2.5 transition-all duration-200 focus:outline-none focus:ring-2"
+              style={{
+                backgroundColor: 'var(--background)',
+                border: '2px solid var(--accent)',
+                color: 'var(--background)',
+                WebkitBoxShadow: '0 0 0 1000px var(--foreground) inset',
+                WebkitTextFillColor: 'var(--background)'
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = 'var(--background)';
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = 'var(--accent)';
+              }}
+              placeholder="John Doe"
+              value={form.name}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
+              required
+            />
+          </div>
+
+          <div>
+            <label 
+              className="block text-sm font-medium mb-2"
+              style={{ color: 'var(--foreground)' }}
+            >
+              Email
+            </label>
+            <input
+              className="w-full rounded-lg px-4 py-2.5 transition-all duration-200 focus:outline-none focus:ring-2"
+              style={{
+                backgroundColor: 'var(--background)',
+                border: '2px solid var(--accent)',
+                color: 'var(--background)',
+                WebkitBoxShadow: '0 0 0 1000px var(--foreground) inset',
+                WebkitTextFillColor: 'var(--background)'
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = 'var(--background)';
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = 'var(--accent)';
+              }}
+              placeholder="you@example.com"
+              type="email"
+              value={form.email}
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
+              required
+            />
+          </div>
+
+          <div>
+            <label 
+              className="block text-sm font-medium mb-2"
+              style={{ color: 'var(--foreground)' }}
+            >
+              Password
+            </label>
+            <input
+              className="w-full rounded-lg px-4 py-2.5 transition-all duration-200 focus:outline-none focus:ring-2"
+              style={{
+                backgroundColor: 'var(--background)',
+                border: '2px solid var(--accent)',
+                color: 'var(--background)',
+                WebkitBoxShadow: '0 0 0 1000px var(--foreground) inset',
+                WebkitTextFillColor: 'var(--background)'
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = 'var(--background)';
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = 'var(--accent)';
+              }}
+              placeholder="Minimum 6 characters"
+              type="password"
+              value={form.password}
+              onChange={(e) => setForm({ ...form, password: e.target.value })}
+              required
+              minLength={6}
+            />
+          </div>
+
+          <div className="flex justify-center">
+            <button 
+              className="rounded-lg px-6 py-3 shadow font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+              style={{
+                backgroundColor: 'var(--accent)',
+                color: 'var(--foreground)'
+              }}
+              disabled={loading}
+            >
+              {loading ? 'Creating account...' : 'Sign up'}
+            </button>
+          </div>
+        </form>
+
+        <p 
+          className="text-sm text-center mt-6"
+          style={{ color: 'var(--foreground)' }}
+        >
+          Already have an account?{' '}
+          <Link 
+            className="font-semibold underline underline-offset-4 transition-all duration-200 hover:opacity-70"
+            href="/auth/login"
+            style={{ color: 'var(--foreground)' }}
+          >
+            Sign in
+          </Link>
+        </p>
+      </div>
     </div>
   );
 }

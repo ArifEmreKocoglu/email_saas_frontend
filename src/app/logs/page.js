@@ -28,47 +28,101 @@ export default function LogsPage() {
   return (
     <RequireAuth>
       <div className="p-8 space-y-6">
-        <h1 className="text-2xl font-semibold">Logs</h1>
+        <h1 
+          className="text-3xl font-semibold tracking-tight"
+          style={{ color: 'var(--foreground)' }}
+        >
+          Logs
+        </h1>
 
         {loading ? (
-          <p>Loading...</p>
+          <div className="flex items-center justify-center py-12">
+            <div className="text-center">
+              <div 
+                className="inline-block w-8 h-8 border-4 border-t-transparent rounded-full animate-spin mb-2"
+                style={{ borderColor: 'var(--accent)', borderTopColor: 'transparent' }}
+              />
+              <p style={{ color: 'var(--foreground)' }}>Loading logs...</p>
+            </div>
+          </div>
         ) : data.items.length === 0 ? (
-          <p>No logs yet</p>
+          <div 
+            className="text-center py-12 rounded-xl shadow"
+            style={{ 
+              backgroundColor: 'var(--accent-hover)',
+              color: 'var(--foreground)'
+            }}
+          >
+            <p className="text-lg">No logs yet</p>
+            <p className="text-sm opacity-70 mt-2">Logs will appear here once emails are processed</p>
+          </div>
         ) : (
           <div className="space-y-3">
             {data.items.map((log) => (
-              <div key={log._id} className="p-4 rounded-lg border flex items-center justify-between">
-                <div className="space-y-1">
-                  <div className="font-medium">{log.subject || "(no subject)"}</div>
-                  <div className="text-sm text-gray-600">
-                    {log.email} • {log.workflowName} • {log.duration || "-"}
+              <div 
+                key={log._id} 
+                className="p-5 rounded-xl shadow-lg transition-all duration-300 hover:scale-102 hover:shadow-xl"
+                style={{
+                  backgroundColor: 'var(--accent)',
+                  border: '1px solid var(--accent-light)'
+                }}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="space-y-1 flex-1">
+                    <div 
+                      className="font-semibold text-lg"
+                      style={{ color: 'var(--background)' }}
+                    >
+                      {log.subject || "(no subject)"}
+                    </div>
+                    <div 
+                      className="text-sm opacity-80"
+                      style={{ color: 'var(--background)' }}
+                    >
+                      {log.email} • {log.workflowName} • {log.duration || "-"}
+                    </div>
                   </div>
+                  <span
+                    className={`px-3 py-1.5 rounded-lg text-sm font-semibold shadow-sm`}
+                    style={{
+                      backgroundColor: log.status === "success" ? 'var(--accent)' : '#d1d5db',
+                      color: log.status === "success" ? 'var(--foreground)' : '#6b7280'
+                    }}
+                  >
+                    {log.status}
+                  </span>
                 </div>
-                <span
-                  className={`px-2 py-1 rounded text-sm ${
-                    log.status === "success"
-                      ? "bg-emerald-100 text-emerald-700"
-                      : "bg-rose-100 text-rose-700"
-                  }`}
-                >
-                  {log.status}
-                </span>
               </div>
             ))}
           </div>
         )}
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 justify-center">
           <button
-            className="px-3 py-2 rounded border disabled:opacity-50"
+            className="px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+            style={{
+              backgroundColor: 'var(--accent)',
+              color: 'var(--foreground)',
+              border: '1px solid var(--accent-light)'
+            }}
             disabled={data.page <= 1 || loading}
             onClick={() => load(data.page - 1)}
           >
             Prev
           </button>
-          <span className="text-sm">Page {data.page}</span>
+          <span 
+            className="text-sm font-medium px-4"
+            style={{ color: 'var(--foreground)' }}
+          >
+            Page {data.page}
+          </span>
           <button
-            className="px-3 py-2 rounded border disabled:opacity-50"
+            className="px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+            style={{
+              backgroundColor: 'var(--accent)',
+              color: 'var(--foreground)',
+              border: '1px solid var(--accent-light)'
+            }}
             disabled={!data.hasMore || loading}
             onClick={() => load(data.page + 1)}
           >
