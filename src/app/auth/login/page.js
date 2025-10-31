@@ -62,25 +62,21 @@ export default function LoginPage() {
         <form onSubmit={onSubmit} className="space-y-4">
           <div>
             <label 
+              htmlFor="email"
               className="block text-sm font-medium mb-2"
               style={{ color: 'var(--foreground)' }}
             >
               Email
             </label>
             <input
-              className="w-full rounded-lg px-4 py-2.5 transition-all duration-200 focus:outline-none focus:ring-2"
+              id="email"
+              className="w-full rounded-lg px-4 py-2.5 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[color:var(--background)] border-2 bg-[color:var(--background)]"
               style={{
                 backgroundColor: 'var(--background)',
-                border: '2px solid var(--accent)',
-                color: 'var(--background)',
-                WebkitBoxShadow: '0 0 0 1000px var(--foreground) inset',
-                WebkitTextFillColor: 'var(--background)'
-              }}
-              onFocus={(e) => {
-                e.target.style.borderColor = 'var(--background)';
-              }}
-              onBlur={(e) => {
-                e.target.style.borderColor = 'var(--accent)';
+                borderColor: 'var(--accent)',
+                color: 'var(--foreground)',
+                WebkitBoxShadow: '0 0 0 1000px var(--background) inset',
+                WebkitTextFillColor: 'var(--foreground)'
               }}
               placeholder="you@example.com"
               type="email"
@@ -92,25 +88,21 @@ export default function LoginPage() {
 
           <div>
             <label 
+              htmlFor="password"
               className="block text-sm font-medium mb-2"
               style={{ color: 'var(--foreground)' }}
             >
               Password
             </label>
             <input
-              className="w-full rounded-lg px-4 py-2.5 transition-all duration-200 focus:outline-none focus:ring-2"
+              id="password"
+              className="w-full rounded-lg px-4 py-2.5 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[color:var(--background)] border-2 bg-[color:var(--background)]"
               style={{
                 backgroundColor: 'var(--background)',
-                border: '2px solid var(--accent)',
-                color: 'var(--background)',
-                WebkitBoxShadow: '0 0 0 1000px var(--foreground) inset',
-                WebkitTextFillColor: 'var(--background)'
-              }}
-              onFocus={(e) => {
-                e.target.style.borderColor = 'var(--background)';
-              }}
-              onBlur={(e) => {
-                e.target.style.borderColor = 'var(--accent)';
+                borderColor: 'var(--accent)',
+                color: 'var(--foreground)',
+                WebkitBoxShadow: '0 0 0 1000px var(--background) inset',
+                WebkitTextFillColor: 'var(--foreground)'
               }}
               placeholder="••••••••"
               type="password"
@@ -128,6 +120,7 @@ export default function LoginPage() {
                 color: 'var(--foreground)'
               }}
               disabled={loading}
+              type="submit"
             >
               {loading ? 'Signing in...' : 'Sign in'}
             </button>

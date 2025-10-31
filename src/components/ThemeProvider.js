@@ -8,9 +8,13 @@ export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState("light");
 
   useEffect(() => {
-    const saved = localStorage.getItem("theme") || "light";
-    setTheme(saved);
-    document.documentElement.setAttribute("data-theme", saved);
+    // Initialize from the current document attribute to avoid flicker.
+    const current = document.documentElement.getAttribute("data-theme");
+    const initial = current || localStorage.getItem("theme") || "light";
+    setTheme(initial);
+    if (!current) {
+      document.documentElement.setAttribute("data-theme", initial);
+    }
   }, []);
 
   const toggleTheme = () => {

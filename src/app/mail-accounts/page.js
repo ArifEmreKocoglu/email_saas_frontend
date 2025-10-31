@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import RequireAuth from "@/components/RequireAuth";
 import { useAuth } from "@/components/AuthProvider";
 import { fetchMailAccounts } from "@/lib/api";
+import MailAccountCard from "@/components/MailAccountCard";
 
 export default function MailAccountsPage() {
   const { user } = useAuth();
@@ -51,19 +52,14 @@ export default function MailAccountsPage() {
             </a>
             <button
               onClick={load}
-              className="px-4 py-2.5 rounded-lg border-2 font-medium transition-all duration-300 hover:scale-105"
+              className="px-4 py-2.5 rounded-lg border-2 font-medium transition-all duration-300 hover:scale-105 hover:bg-[rgba(179,200,207,0.15)]"
               style={{
                 borderColor: 'var(--accent)',
                 backgroundColor: 'transparent',
                 color: 'var(--foreground)'
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(179, 200, 207, 0.15)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
-              }}
               disabled={loading}
+              type="button"
             >
               {loading ? 'Refreshing...' : 'Refresh'}
             </button>
@@ -94,62 +90,7 @@ export default function MailAccountsPage() {
         ) : (
           <div className="space-y-3">
             {data.items.map((acc) => (
-              <div 
-                key={acc.email} 
-                className="p-5 rounded-xl shadow-lg transition-all duration-300 hover:scale-102 hover:shadow-xl"
-                style={{
-                  backgroundColor: 'var(--accent)',
-                  border: '1px solid var(--accent-light)'
-                }}
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex-1">
-                    <div 
-                      className="font-semibold text-lg mb-1"
-                      style={{ color: 'var(--foreground)' }}
-                    >
-                      {acc.email}
-                    </div>
-                    <div 
-                      className="text-sm opacity-80 mb-2"
-                      style={{ color: 'var(--foreground)' }}
-                    >
-                      {acc.provider} • connected {new Date(acc.connectedAt).toLocaleString()}
-                    </div>
-                    {acc.watchExpiration && (
-                      <div 
-                        className="text-xs opacity-70 mb-1"
-                        style={{ color: 'var(--foreground)' }}
-                      >
-                        Watch expires: {new Date(acc.watchExpiration).toLocaleString()}
-                      </div>
-                    )}
-                    {acc.lastHistoryId && (
-                      <div 
-                        className="text-xs opacity-60 font-mono"
-                        style={{ color: 'var(--foreground)' }}
-                      >
-                        lastHistoryId: {String(acc.lastHistoryId).slice(0, 12)}…
-                      </div>
-                    )}
-                  </div>
-                  <span
-                    className="px-3 py-1.5 rounded-full text-sm font-semibold shadow-sm flex items-center gap-1.5"
-                    style={{
-                      backgroundColor: acc.status === "active" ? 'var(--background)' : acc.status === "paused" ? '#fbbf24' : 'var(--error)',
-                      color: acc.status === "active" ? 'var(--foreground)' : acc.status === "paused" ? '#78350f' : 'white'
-                    }}
-                  >
-                    <span 
-                      className="w-1.5 h-1.5 rounded-full animate-pulse"
-                      style={{ 
-                        backgroundColor: acc.status === "active" ? 'var(--success-text)' : acc.status === "paused" ? '#78350f' : 'white'
-                      }}
-                    />
-                    {acc.status.charAt(0).toUpperCase() + acc.status.slice(1)}
-                  </span>
-                </div>
-              </div>
+              <MailAccountCard key={acc.email} account={acc} />
             ))}
           </div>
         )}
