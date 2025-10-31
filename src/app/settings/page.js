@@ -126,7 +126,7 @@ export default function SettingsPage() {
                 onClick={toggleTheme}
                 className="relative inline-flex h-6 w-11 items-center rounded-full transition-all duration-300"
                 style={{
-                  backgroundColor: theme === 'dark' ? 'var(--background)' : 'rgba(162, 175, 155, 0.3)'
+                  backgroundColor: 'var(--background)'
                 }}
               >
                 <span

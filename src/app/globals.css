@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: rgb(172, 162, 195);
-  --accent: rgb(165, 155, 189);
+  --background: #c2bdd2;
+  --accent: #b2abc7;
   --foreground: #352F44;
   
   /* Derived colors */
-  --accent-hover: rgb(165, 155, 189);
-  --accent-light: rgb(165, 155, 189);
+  --accent-hover: #b2abc7;
+  --accent-light: #b2abc7;
   --border: rgba(220, 207, 192, 0.3);
   --success: #FAF9EE;
   --success-text: #1eff00;
@@ -18,12 +18,12 @@
 
 [data-theme="dark"] {
   --background: #352F44;
-  --accent: #443c56;
+  --accent: #484158;
   --foreground: #B9B4C7;
   
   /* Derived colors stay same or adjust as needed */
-  --accent-hover: #443c56;
-  --accent-light: #443c56;
+  --accent-hover: #484158;
+  --accent-light: #484158;
   --border: rgba(220, 207, 192, 0.3);
   --success: #A2AF9B;
   --success-text: #82f373;

@@ -51,18 +51,13 @@ export default function Navbar() {
             </div>
             <button
               onClick={onLogout}
-              className="text-sm font-medium shadow rounded-lg px-4 py-2 border-2 transition-all duration-300 hover:scale-105 hover:shadow-lg"
+              className="text-sm font-medium shadow rounded-lg px-4 py-2 border-2 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:bg-[color:var(--accent-hover)]"
               style={{ 
                 color: 'var(--foreground)',
                 borderColor: 'var(--accent)',
                 backgroundColor: 'transparent'
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'var(--accent-hover)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
-              }}
+              type="button"
             >
               Logout
             </button>
