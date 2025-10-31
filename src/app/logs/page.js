@@ -11,17 +11,16 @@ export default function LogsPage() {
   const [loading, setLoading] = useState(true);
 
   const load = async (page = 1) => {
-    if (!user) return;
     setLoading(true);
     try {
-      const res = await fetchLogs(user.id, page, data.limit);
+      const res = await fetchLogs(page, data.limit); // user.id yok
+      console.log("test:", res);
       setData(res);
-    } catch (e) {
-      console.error(e);
     } finally {
       setLoading(false);
     }
   };
+  useEffect(() => { load(1); }, []); // user bağımlılığı kaldırılabilir
 
   useEffect(() => { if (user) load(1); }, [user]);
 
