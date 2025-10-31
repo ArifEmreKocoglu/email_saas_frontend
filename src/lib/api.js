@@ -59,5 +59,5 @@ export const fetchDashboardStats = (userId) =>
 export const fetchMailAccounts = (userId) =>
   apiFetch(`/api/mail-accounts?userId=${userId}`);
 
-export const fetchLogs = (userId, page = 1, limit = 50) =>
-  apiFetch(`/api/logs?userId=${userId}&page=${page}&limit=${limit}`);
+  export const fetchLogs = (page = 1, limit = 50) =>
+  apiFetch(`/api/logs?page=${page}&limit=${limit}`);
