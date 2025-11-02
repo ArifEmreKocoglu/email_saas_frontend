@@ -10,6 +10,7 @@ export default function Sidebar() {
     { href: "/dashboard", label: "Dashboard" },
     { href: "/mail-accounts", label: "Mail Accounts" },
     { href: "/logs", label: "Logs" },
+    { href: "/pricing", label: "Pricing" },
     { href: "/settings", label: "Settings" },
   ];
 
@@ -35,7 +36,7 @@ export default function Sidebar() {
         >
           Entrfy
         </h2>
-        <p className="text-xs mt-1 opacity-80" style={{ color: 'var(--foreground)' }}>
+        <p className="text-xs mt-1 opacity-80 font-semibold" style={{ color: 'var(--foreground)' }}>
           Mail Management
         </p>
       </div>
@@ -54,7 +55,7 @@ export default function Sidebar() {
               }}
             >
               <div
-                className={`flex items-center px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
+                className={`flex items-center px-4 py-3 rounded-lg text-sm font-semibold transition-all duration-300 ${
                   isActive ? 'shadow-lg' : ''
                 }`}
                 style={{
@@ -104,7 +105,7 @@ export default function Sidebar() {
               className="w-2 h-2 rounded-full animate-pulse"
               style={{ backgroundColor: '#4ade80' }}
             />
-            <span className="text-xs font-medium" style={{ color: 'var(--foreground)' }}>
+            <span className="text-xs font-semibold" style={{ color: 'var(--foreground)' }}>
               System Online
             </span>
           </div>
@@ -120,8 +121,8 @@ export default function Sidebar() {
           backgroundColor: 'transparent'
         }}
       >
-        <p className="font-medium">Entrfy Mail SaaS</p>
-        <p className="opacity-70 mt-1">© {new Date().getFullYear()}</p>
+        <p className="font-semibold">Entrfy Mail SaaS</p>
+        <p className="opacity-70 mt-1 font-semibold">© {new Date().getFullYear()}</p>
       </div>
 
       {/* CSS Animations */}
