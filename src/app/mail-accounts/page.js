@@ -15,6 +15,7 @@ export default function MailAccountsPage() {
     setLoading(true);
     try {
       const res = await fetchMailAccounts(user.id);
+      console.log("test", res);
       setData(res);
     } catch (e) {
       console.error(e);

@@ -59,5 +59,40 @@ export const fetchDashboardStats = (userId) =>
 export const fetchMailAccounts = (userId) =>
   apiFetch(`/api/mail-accounts?userId=${userId}`);
 
+  export const deleteMailAccount = (email) =>
+  apiFetch(`/api/mail-accounts/${encodeURIComponent(email)}`, {
+    method: "DELETE",
+  });
+
+export const stopMailWatch = (email) =>
+  apiFetch(`/api/mail-accounts/${encodeURIComponent(email)}/stop-watch`, {
+    method: "POST",
+  });
+  
+
   export const fetchLogs = (page = 1, limit = 50) =>
   apiFetch(`/api/logs?page=${page}&limit=${limit}`);
+
+
+  // ✅ NEW: Tag management helpers
+export const tags = {
+  // Get all label configuration for a specific email
+  get: (email) =>
+    apiFetch(`/api/mail-accounts/${encodeURIComponent(email)}/tags`),
+
+  // Initialize defaults for a new mail account
+  init: (email, defaults) =>
+    postJson(`/api/mail-accounts/${encodeURIComponent(email)}/tags/init`, {
+      initial: defaults,
+    }),
+
+  // Save updated label configuration
+  save: (email, config) =>
+    postJson(`/api/mail-accounts/${encodeURIComponent(email)}/tags`, config),
+
+  // Delete a label or sublabel
+  remove: (email, path) =>
+    apiFetch(`/api/mail-accounts/${encodeURIComponent(email)}/tags/${encodeURIComponent(path)}`, {
+      method: "DELETE",
+    }),
+};

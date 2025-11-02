@@ -1,35 +1,37 @@
 @import "tailwindcss";
 
+/* ========== LIGHT THEME ========== */
 :root {
-  --background: #c2bdd2;
-  --accent: #b2abc7;
-  --foreground: #352F44;
+  --background: #F5F6F7;         /* Açık gri-beyaz taban */
+  --accent: #D1D5DB;             /* Orta gri vurgu */
+  --foreground: #1F2937;         /* Neredeyse siyah, metin için net */
   
   /* Derived colors */
-  --accent-hover: #b2abc7;
-  --accent-light: #b2abc7;
-  --border: rgba(220, 207, 192, 0.3);
-  --success: #FAF9EE;
-  --success-text: #1eff00;
-  --error: #ef4444;
-  --error-bg: rgba(239, 68, 68, 0.1);
-  --error-border: rgba(239, 68, 68, 0.3);
+  --accent-hover: #9CA3AF;       /* Bir tık koyu gri hover tonu */
+  --accent-light: #E5E7EB;       /* Açık gri, yumuşak yüzeyler için */
+  --border: rgba(0, 0, 0, 0.08); /* İnce nötr border */
+  --success: #ECFDF5;
+  --success-text: #059669;
+  --error: #DC2626;
+  --error-bg: rgba(220, 38, 38, 0.08);
+  --error-border: rgba(220, 38, 38, 0.25);
 }
 
+/* ========== DARK THEME ========== */
 [data-theme="dark"] {
-  --background: #352F44;
-  --accent: #484158;
-  --foreground: #B9B4C7;
+  --background: #1E1E1E;         /* Saf siyah değil, göz dostu koyu gri */
+  --accent: #3F3F46;             /* Orta koyu gri vurgu */
+  --foreground: #E5E5E5;         /* Açık gri-beyaz metin */
   
-  /* Derived colors stay same or adjust as needed */
-  --accent-hover: #484158;
-  --accent-light: #484158;
-  --border: rgba(220, 207, 192, 0.3);
-  --success: #A2AF9B;
-  --success-text: #82f373;
-  --error: #ef4444;
-  --error-bg: rgba(239, 68, 68, 0.1);
-  --error-border: rgba(239, 68, 68, 0.3);
+  /* Derived colors */
+  --accent-hover: #52525B;
+  --accent-light: #71717A;
+  --border: rgba(255, 255, 255, 0.1);
+  --success: #064E3B;
+  --success-text: #34D399;
+  --error: #F87171;
+  --error-bg: rgba(248, 113, 113, 0.1);
+  --error-border: rgba(248, 113, 113, 0.2);
 }
 
 @theme inline {
