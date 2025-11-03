@@ -1,0 +1,13 @@
+services:
+  panel-frontend:
+    build: .
+    container_name: panel-frontend
+    restart: unless-stopped
+    env_file:
+      - .env
+    networks:
+      - ops_net
+
+networks:
+  ops_net:
+    external: true
