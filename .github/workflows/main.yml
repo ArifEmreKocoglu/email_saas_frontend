@@ -1,0 +1,37 @@
+name: Auto Deploy Frontend to AWS (Docker)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy Frontend to AWS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Connect to EC2 and Deploy Frontend
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd ~/email_saas_frontend
+            echo "🔄 Pulling latest changes..."
+            git pull origin main
+            echo "🐳 Building Docker image for frontend..."
+            docker build -t email_saas_frontend-panel-frontend:latest .
+            echo "🧹 Stopping old container..."
+            docker stop panel-frontend || true
+            docker rm panel-frontend || true
+            echo "🚀 Starting new container..."
+            docker run -d --name panel-frontend \
+              --env-file .env \
+              --network ops_net \
+              email_saas_frontend-panel-frontend:latest
+            echo "✅ Frontend deployment completed successfully!"
