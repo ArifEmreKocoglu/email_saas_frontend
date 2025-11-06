@@ -106,4 +106,6 @@ export const plans = {
   list: () => apiFetch("/api/plans"), // backend'den tüm planları çeker
   checkout: (priceId) =>
     postJson("/api/plans/checkout", { priceId }), // seçili planla Stripe Checkout başlatır
+
+  verify: (sessionId) => apiFetch(`/api/plans/verify/${sessionId}`),
 };
