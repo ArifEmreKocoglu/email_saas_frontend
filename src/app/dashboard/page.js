@@ -141,12 +141,10 @@ export default function DashboardPage() {
               >
                 Errors
               </h2>
-              <p 
-                className="text-4xl font-bold"
-                style={{ color: 'var(--foreground)' }}
-              >
-                {stats.errorLogs}
-              </p>
+              <p className="text-4xl font-bold"
+                  style={{ color: stats.errorLogs > 0 ? '#ef4444' : 'var(--foreground)' }}>
+                  {stats.errorLogs}
+                </p>
             </div>
           </div>
 

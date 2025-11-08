@@ -57,42 +57,52 @@ export default function LogsPage() {
           </div>
         ) : (
           <div className="space-y-3">
-            {data.items.map((log) => (
-              <div 
-                key={log._id} 
-                className="p-5 rounded-xl shadow-lg transition-all duration-300 hover:scale-102 hover:shadow-xl"
-                style={{
-                  backgroundColor: 'var(--accent)',
-                  border: '1px solid var(--accent-light)'
-                }}
-              >
-                <div className="flex items-center justify-between">
-                  <div className="space-y-1 flex-1">
-                    <div 
-                      className="font-semibold text-lg"
-                      style={{ color: 'var(--background)' }}
-                    >
-                      {log.subject || "(no subject)"}
-                    </div>
-                    <div 
-                      className="text-sm opacity-80"
-                      style={{ color: 'var(--background)' }}
-                    >
-                      {log.email} • {log.workflowName} • {log.duration || "-"}
-                    </div>
-                  </div>
-                  <span
-                    className={`px-3 py-1.5 rounded-lg text-sm font-semibold shadow-sm`}
-                    style={{
-                      backgroundColor: log.status === "success" ? 'var(--accent)' : '#d1d5db',
-                      color: log.status === "success" ? 'var(--foreground)' : '#6b7280'
-                    }}
-                  >
-                    {log.status}
-                  </span>
-                </div>
-              </div>
-            ))}
+{data.items.map((log) => (
+  <div
+    key={log._id}
+    className="p-5 rounded-xl shadow-lg transition-all duration-300 hover:scale-102 hover:shadow-xl"
+    style={{
+      backgroundColor: log.status === "success" ? 'var(--accent)' : '#fee2e2',
+      border: '1px solid var(--accent-light)',
+    }}
+  >
+    <div className="flex items-center justify-between">
+      <div className="space-y-1 flex-1">
+        <div
+          className="font-semibold text-lg"
+          style={{ color: log.status === "success" ? 'var(--background)' : '#991b1b' }}
+        >
+          {log.subject || "(no subject)"}
+        </div>
+        <div
+          className="text-sm opacity-80"
+          style={{ color: log.status === "success" ? 'var(--background)' : '#7f1d1d' }}
+        >
+          {log.email} • {log.workflowName} • {log.duration || "-"}
+        </div>
+        {log.errorMessage && (
+          <div
+            className="text-xs mt-1 italic opacity-70"
+            style={{
+              color: log.status === "error" ? '#b91c1c' : 'var(--foreground)',
+            }}
+          >
+            ⚠️ {log.errorMessage}
+          </div>
+        )}
+      </div>
+      <span
+        className="px-3 py-1.5 rounded-lg text-sm font-semibold shadow-sm"
+        style={{
+          backgroundColor: log.status === "success" ? '#16a34a' : '#dc2626',
+          color: '#fff',
+        }}
+      >
+        {log.status}
+      </span>
+    </div>
+  </div>
+))}
           </div>
         )}
 
