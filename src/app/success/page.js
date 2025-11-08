@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { plans } from "@/lib/api";
 
-export default function SuccessPage() {
+function SuccessInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("session_id");
@@ -44,5 +44,13 @@ export default function SuccessPage() {
         <p className="text-red-600 font-semibold text-lg">{message}</p>
       )}
     </div>
+  );
+}
+
+export default function SuccessPage() {
+  return (
+    <Suspense fallback={<div className="p-10 text-center">Yükleniyor...</div>}>
+      <SuccessInner />
+    </Suspense>
   );
 }
