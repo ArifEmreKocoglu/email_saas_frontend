@@ -57,44 +57,6 @@ export default function DashboardPage() {
             Dashboard
           </h1>
 
-
-          {/* Kullanıcı Plan Bilgisi */}
-          {user && (
-            <div 
-              className="p-6 rounded-xl shadow-md border border-gray-800 flex flex-col md:flex-row md:items-center md:justify-between gap-4"
-              style={{ backgroundColor: 'var(--accent)' }}
-            >
-              <div>
-                <h2 className="text-sm font-medium opacity-80" style={{ color: 'var(--foreground)' }}>
-                  Current Plan
-                </h2>
-                <p className="text-2xl font-semibold" style={{ color: 'var(--foreground)' }}>
-                  {user.plan || "Free"}
-                </p>
-              </div>
-
-              <div className="flex flex-col md:flex-row gap-6">
-                <div>
-                  <h3 className="text-sm opacity-80" style={{ color: 'var(--foreground)' }}>
-                    Mail Accounts
-                  </h3>
-                  <p className="text-lg font-semibold" style={{ color: 'var(--foreground)' }}>
-                    {user.limits?.maxMailAccounts ?? 0}
-                  </p>
-                </div>
-                <div>
-                  <h3 className="text-sm opacity-80" style={{ color: 'var(--foreground)' }}>
-                    Logs Limit
-                  </h3>
-                  <p className="text-lg font-semibold" style={{ color: 'var(--foreground)' }}>
-                    {user.limits?.maxLogs ?? 0}
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
-
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div 
               className="p-6 rounded-xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
