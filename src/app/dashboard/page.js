@@ -69,7 +69,7 @@ export default function DashboardPage() {
                     Current Plan
                   </h2>
                   <p className="text-2xl font-semibold" style={{ color: 'var(--foreground)' }}>
-                    {user.plan || "Free"}
+                    {stats.plan || "Free"}
                   </p>
                 </div>
 
@@ -79,7 +79,7 @@ export default function DashboardPage() {
                       Mail Accounts
                     </h3>
                     <p className="text-lg font-semibold" style={{ color: 'var(--foreground)' }}>
-                      {user.limits?.maxMailAccounts ?? 0}
+                    {stats.limits?.maxMailAccounts ?? 0}
                     </p>
                   </div>
                   <div>
@@ -87,7 +87,7 @@ export default function DashboardPage() {
                       Logs Limit
                     </h3>
                     <p className="text-lg font-semibold" style={{ color: 'var(--foreground)' }}>
-                      {user.limits?.maxLogs ?? 0}
+                    {stats.limits?.maxLogs ?? 0}
                     </p>
                   </div>
                 </div>
