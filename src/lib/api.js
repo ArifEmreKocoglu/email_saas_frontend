@@ -109,3 +109,10 @@ export const plans = {
 
   verify: (sessionId) => apiFetch(`/api/plans/verify/${sessionId}`),
 };
+
+
+
+export const rewatchMailAccount = (accountId) =>
+  apiFetch(`/api/gmail/watch-account/${encodeURIComponent(accountId)}`, {
+    method: "POST",
+  });

@@ -2,12 +2,13 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { deleteMailAccount, stopMailWatch } from "@/lib/api";
+import { deleteMailAccount, stopMailWatch, rewatchMailAccount } from "@/lib/api";
 
 export default function MailAccountCard({ account }) {
   const router = useRouter();
   const [deleting, setDeleting] = useState(false);
   const [stopping, setStopping] = useState(false);
+  const [rewatching, setRewatching] = useState(false);
 
   console.log("ACCOUNT:", account);
     console.log("isActive typeof:", typeof account.isActive, "value:", account.isActive);
@@ -24,6 +25,26 @@ export default function MailAccountCard({ account }) {
   const status = isStopped
     ? statusColors.stopped
     : statusColors[account.status] || { bg: '#d1d5db', text: '#6b7280', label: account.status };
+
+
+    // ♻️ Re-watch (OAuth'a yönlendirmek yerine doğrudan watch kurar)
+    const handleRewatch = async () => {
+      const accountId = account._id || account.id;
+      if (!accountId) return alert("Account ID not found");
+
+      setRewatching(true);
+      try {
+        const res = await rewatchMailAccount(accountId);
+        const when = res?.watchExpiration ? new Date(res.watchExpiration).toLocaleString() : "set";
+        alert(`Watching resumed for ${account.email}\nExpires: ${when}`);
+        router.refresh();
+      } catch (err) {
+        alert(`Failed to re-watch: ${err.message}`);
+      } finally {
+        setRewatching(false);
+      }
+    };
+
 
   // 🟡 Stop Watching
   const handleStopWatching = async () => {
@@ -144,7 +165,8 @@ export default function MailAccountCard({ account }) {
         {/* 🔁 Reconnect veya 🟡 Stop Watching */}
         {isStopped ? (
           <button
-            onClick={handleReconnect}
+            onClick={handleRewatch}               // ⬅️ eskiden handleReconnect idi
+            disabled={rewatching}
             className="px-4 py-2 rounded-lg text-sm font-semibold border transition-all duration-200 hover:scale-105"
             style={{
               backgroundColor: 'var(--success)',
@@ -152,7 +174,7 @@ export default function MailAccountCard({ account }) {
               color: '#000'
             }}
           >
-            Reconnect
+            {rewatching ? "Reconnecting..." : "Reconnect"}
           </button>
         ) : (
           <button
