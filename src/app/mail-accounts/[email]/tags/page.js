@@ -1,160 +1,141 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import RequireAuth from "@/components/RequireAuth";
 import { useAuth } from "@/components/AuthProvider";
 import { tags } from "@/lib/api";
 
-/* =======================
-   Default Label Template
-   ======================= */
-const DEFAULT_LABEL_TEMPLATE = {
-  allowed: [
-    { path: "Finance", color: "#fad165" },
-    { path: "Finance/Invoices", color: "#fad165" },
-    { path: "Finance/Payments", color: "#fad165" },
-    { path: "Security", color: "#ffad47" },
-    { path: "Security/Spam", color: "#ffad47" },
-    { path: "Security/Phishing", color: "#ffad47" },
-    { path: "Marketing", color: "#fb4c2f" },
-    { path: "Marketing/Newsletters", color: "#fb4c2f" },
-    { path: "Marketing/Promotions", color: "#fb4c2f" },
-    { path: "Commerce", color: "#16a766" },
-    { path: "Commerce/Orders", color: "#16a766" },
-    { path: "Commerce/Shipping", color: "#16a766" },
-    { path: "Commerce/Returns", color: "#16a766" },
-    { path: "Support", color: "#f691b3" },
-    { path: "Support/Tickets", color: "#f691b3" },
-    { path: "DevOps", color: "#f691b3" },
-    { path: "DevOps/Tools", color: "#f691b3" },
-    { path: "HR", color: "#43d692" },
-    { path: "HR/Application", color: "#43d692" },
-    { path: "Legal", color: "#43d692" },
-    { path: "System", color: "#43d692" },
-    { path: "Personal", color: "#a479e2" },
-  ],
-  awaiting: { path: "AwaitingReply", color: "#000000" },
-  review: { path: "Review/Uncertain", color: "#4a86e8" },
-};
-
 const COLOR_OPTIONS = [
-  "#f28b82", "#fbbc04", "#fff475", "#ccff90", "#a7ffeb",
-  "#cbf0f8", "#aecbfa", "#d7aefb", "#fdcfe8", "#e6c9a8", "#e8eaed"
+  "#fad165", // Finance
+  "#ffad47", // Security
+  "#fb4c2f", // Marketing
+  "#16a766", // Commerce
+  "#f691b3", // Support / DevOps
+  "#43d692", // HR / Legal / System
+  "#a479e2", // Personal
+  "#000000", // AwaitingReply
+  "#4a86e8"  // Review (default)
 ];
 
 export default function ManageTagsPage() {
   const { user } = useAuth();
   const router = useRouter();
   const params = useParams();
-  const emailParam = decodeURIComponent(params.email || "");
+  const email = decodeURIComponent(params.email);
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
-  const [config, setConfig] = useState(null); // full label config object
-  const [openColor, setOpenColor] = useState(null);
+  const [config, setConfig] = useState(null);
+  const [openColorPicker, setOpenColorPicker] = useState(null);
 
-  const titleEmail = useMemo(() => emailParam, [emailParam]);
-  
-
+  // ------------------------------
+  // Load configuration from backend
+  // ------------------------------
   useEffect(() => {
-    if (!user || !emailParam) return;
-    let cancelled = false;
+    if (!user) return;
 
-    async function loadData() {
+    async function load() {
       setLoading(true);
       try {
-
-        const data = await tags.get(emailParam);
-        if (!data) {
-          await tags.init(emailParam, DEFAULT_LABEL_TEMPLATE.allowed.map(a => a.path));
-          setConfig(DEFAULT_LABEL_TEMPLATE);
-        } else {
-          setConfig(data);
-        }
-
-        await tags.save(emailParam, config);
-
-        // init (ilk kurulumda):
-        await tags.init(emailParam, DEFAULT_LABEL_TEMPLATE.allowed.map(a => a.path));
-
-        // In production, fetch from backend:
-        // const data = await apiFetch(`/api/mail-accounts/${emailParam}/tags`);
-        // setConfig(data);
-
-        await new Promise(r => setTimeout(r, 300));
-        if (!cancelled) {
-          // Simulate user config merge with default
-          setConfig({
-            ...DEFAULT_LABEL_TEMPLATE,
-            allowed: DEFAULT_LABEL_TEMPLATE.allowed,
-            awaiting: DEFAULT_LABEL_TEMPLATE.awaiting,
-            review: DEFAULT_LABEL_TEMPLATE.review,
-          });
-        }
+        const data = await tags.get(email);
+        setConfig(data.tagsConfig);
       } catch (e) {
-        if (!cancelled) setError(e.message || "Failed to load label config");
+        setError(e.message);
       } finally {
-        if (!cancelled) setLoading(false);
+        setLoading(false);
       }
     }
 
-    loadData();
-    return () => { cancelled = true; };
-  }, [user, emailParam]);
+    load();
+  }, [email, user]);
 
-  const updateColor = (path, color) => {
-    setConfig(cfg => ({
-      ...cfg,
-      allowed: cfg.allowed.map(a => a.path === path ? { ...a, color } : a)
+  // ------------------------------
+  // Update label color
+  // ------------------------------
+  const updateColor = (path, newColor) => {
+    setConfig((prev) => ({
+      ...prev,
+      allowed: prev.allowed.map((item) =>
+        item.path === path ? { ...item, color: newColor } : item
+      ),
     }));
   };
 
+  // ------------------------------
+  // Update special labels
+  // ------------------------------
+  const updateSpecialColor = (key, newColor) => {
+    setConfig((prev) => ({
+      ...prev,
+      [key]: { ...prev[key], color: newColor },
+    }));
+  };
+
+  // ------------------------------
+  // Add new label
+  // ------------------------------
   const addLabel = (parent, child, color) => {
     const path = parent ? `${parent}/${child}` : child;
-    setConfig(cfg => ({
-      ...cfg,
-      allowed: [...cfg.allowed, { path, color }],
+    setConfig((prev) => ({
+      ...prev,
+      allowed: [...prev.allowed, { path, color }],
     }));
   };
 
+  // ------------------------------
+  // Remove label
+  // ------------------------------
   const removeLabel = (path) => {
-    setConfig(cfg => ({
-      ...cfg,
-      allowed: cfg.allowed.filter(a => a.path !== path),
+    setConfig((prev) => ({
+      ...prev,
+      allowed: prev.allowed.filter((l) => l.path !== path),
     }));
   };
 
+  // ------------------------------
+  // Save changes to backend
+  // ------------------------------
   const onSave = async () => {
     setSaving(true);
     setError("");
+
     try {
-      // await apiFetch(`/api/mail-accounts/${emailParam}/tags`, {
-      //   method: "POST",
-      //   body: config,
-      // });
-      await new Promise(r => setTimeout(r, 400));
+      await tags.save(email, config);
     } catch (e) {
-      setError(e.message || "Save failed");
+      setError(e.message);
     } finally {
       setSaving(false);
     }
   };
 
+  // ------------------------------
+  // UI Rendering
+  // ------------------------------
   return (
     <RequireAuth>
       <div className="p-8 space-y-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-semibold" style={{ color: "var(--foreground)" }}>Manage Label Configuration</h1>
-            <p className="opacity-80" style={{ color: "var(--foreground)" }}>{titleEmail}</p>
-          </div>
+
+        {/* HEADER */}
+        <div className="flex flex-col gap-1">
+          <h1 className="text-3xl font-bold" style={{ color: "var(--foreground)" }}>
+            Label Settings
+          </h1>
+          <p className="text-sm opacity-80" style={{ color: "var(--foreground)" }}>
+            Manage automatic LLM labels for: <strong>{email}</strong>
+          </p>
         </div>
 
         {error && (
-          <div className="p-3 rounded-lg text-sm font-medium"
-               style={{ backgroundColor: 'var(--error-bg)', color: 'var(--error)', border: '1px solid var(--error-border)' }}>
+          <div
+            className="p-3 rounded-lg text-sm font-medium"
+            style={{
+              backgroundColor: "var(--error-bg)",
+              color: "var(--error)",
+              border: "1px solid var(--error-border)",
+            }}
+          >
             {error}
           </div>
         )}
@@ -162,55 +143,95 @@ export default function ManageTagsPage() {
         {loading ? (
           <div className="flex justify-center py-16">
             <div className="text-center">
-              <div className="w-8 h-8 mb-2 rounded-full border-4 border-t-transparent animate-spin"
-                   style={{ borderColor: 'var(--accent)', borderTopColor: 'transparent' }} />
-              <p style={{ color: 'var(--foreground)' }}>Loading configuration...</p>
+              <div
+                className="w-10 h-10 rounded-full border-4 border-t-transparent animate-spin"
+                style={{
+                  borderColor: "var(--accent)",
+                  borderTopColor: "transparent",
+                }}
+              />
+              <p className="mt-3" style={{ color: "var(--foreground)" }}>
+                Loading labels...
+              </p>
             </div>
           </div>
         ) : (
-          <div className="rounded-xl p-6 shadow-lg space-y-6"
-               style={{ backgroundColor: 'var(--accent)', border: '1px solid var(--accent-light)' }}>
-            
+          <div
+            className="rounded-xl p-6 shadow-lg space-y-8"
+            style={{
+              backgroundColor: "var(--accent)",
+              border: "1px solid var(--accent-light)",
+            }}
+          >
             {/* Allowed Labels */}
             <section>
-              <h2 className="text-lg font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Allowed Labels</h2>
-              <div className="space-y-2">
-              {config?.allowed?.map((label) => (
-                  <div key={label.path}
-                       className="flex items-center justify-between px-3 py-2 rounded-lg border"
-                       style={{ backgroundColor: 'var(--background)', borderColor: 'var(--border)' }}>
+              <h2 className="text-lg font-semibold mb-4" style={{ color: "var(--foreground)" }}>
+                Allowed Labels
+              </h2>
+
+              <div className="space-y-3">
+                {config.allowed.map((label) => (
+                  <div
+                    key={label.path}
+                    className="relative flex items-center justify-between p-3 rounded-lg border"
+                    style={{
+                      backgroundColor: "var(--background)",
+                      borderColor: "var(--border)",
+                    }}
+                  >
                     <div className="flex items-center gap-3">
-                      <span className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>{label.path}</span>
-                      <span className="px-2 py-0.5 rounded text-xs font-semibold"
-                            style={{ backgroundColor: label.color, color: '#000' }}>{label.path.split('/').pop()}</span>
+                      <span className="text-sm font-medium">{label.path}</span>
+                      <span
+                        className="px-2 py-0.5 rounded text-xs font-semibold"
+                        style={{ backgroundColor: label.color }}
+                      >
+                        {label.path.split("/").pop()}
+                      </span>
                     </div>
+
                     <div className="flex items-center gap-3">
                       <button
-                        onClick={() => setOpenColor(openColor === label.path ? null : label.path)}
-                        className="h-7 px-2 rounded border text-xs font-semibold"
-                        style={{ backgroundColor: label.color, borderColor: 'var(--border)' }}
-                        type="button">
+                        className="h-7 px-3 rounded border text-xs"
+                        style={{ backgroundColor: label.color }}
+                        onClick={() =>
+                          setOpenColorPicker(
+                            openColorPicker === label.path ? null : label.path
+                          )
+                        }
+                      >
                         Color
                       </button>
-                      {openColor === label.path && (
-                        <div className="absolute mt-8 p-2 rounded-lg shadow-lg flex flex-wrap gap-1 z-10"
-                             style={{ backgroundColor: 'var(--accent)', border: '1px solid var(--border)' }}>
+
+                      {openColorPicker === label.path && (
+                        <div
+                          className="absolute left-0 right-0 mt-10 p-2 rounded-lg shadow-lg flex flex-wrap gap-2 z-40"
+                          style={{
+                            backgroundColor: "var(--accent)",
+                            border: "1px solid var(--border)",
+                          }}
+                        >
                           {COLOR_OPTIONS.map((c) => (
                             <button
                               key={c}
-                              onClick={() => { updateColor(label.path, c); setOpenColor(null); }}
-                              className={`h-5 w-5 rounded-full border ${label.color === c ? 'ring-2 ring-[color:var(--foreground)]' : ''}`}
-                              style={{ backgroundColor: c, borderColor: 'var(--border)' }}
-                              type="button"
+                              className={`w-6 h-6 rounded-full border ${
+                                label.color === c ? "ring-2 ring-blue-500" : ""
+                              }`}
+                              style={{ backgroundColor: c }}
+                              onClick={() => {
+                                updateColor(label.path, c);
+                                setOpenColorPicker(null);
+                              }}
                             />
                           ))}
                         </div>
                       )}
+
                       <button
                         onClick={() => removeLabel(label.path)}
-                        className="h-6 w-6 flex items-center justify-center rounded-full text-xs font-bold hover:scale-110 transition-transform"
-                        style={{ color: 'var(--error)', border: '1px solid var(--border)' }}
-                        title="Remove label">×</button>
+                        className="text-red-500 text-lg font-bold"
+                      >
+                        ×
+                      </button>
                     </div>
                   </div>
                 ))}
@@ -219,68 +240,86 @@ export default function ManageTagsPage() {
 
             {/* Special Labels */}
             <section>
-              <h2 className="text-lg font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Special Labels</h2>
-              <div className="space-y-2">
-                {["awaiting", "review"].map((k) => (
-                  <div key={k}
-                       className="flex items-center justify-between px-3 py-2 rounded-lg border"
-                       style={{ backgroundColor: 'var(--background)', borderColor: 'var(--border)' }}>
-                    <div className="flex items-center gap-3">
-                      <span className="text-sm font-medium capitalize" style={{ color: 'var(--foreground)' }}>
-                      {config?.[k]?.path}
-                      </span>
-                      <span className="px-2 py-0.5 rounded text-xs font-semibold"
-                            style={{ backgroundColor: config?.[k]?.color, color: '#000' }}>
-                        {k}
-                      </span>
-                    </div>
-                    <button
-                      onClick={() => setOpenColor(openColor === config?.[k]?.path ? null : config?.[k]?.path)}
-                      className="h-7 px-2 rounded border text-xs font-semibold"
-                      style={{ backgroundColor: config?.[k]?.color, borderColor: 'var(--border)' }}
-                      type="button">
-                      Color
-                    </button>
-                    {openColor === config?.[k]?.path && (
-                      <div className="absolute mt-8 p-2 rounded-lg shadow-lg flex flex-wrap gap-1 z-10"
-                           style={{ backgroundColor: 'var(--accent)', border: '1px solid var(--border)' }}>
-                        {COLOR_OPTIONS.map((c) => (
-                          <button
-                            key={c}
-                            onClick={() => {
-                              setConfig(cfg => ({ ...cfg, [k]: { ...cfg[k], color: c } }));
-                              setOpenColor(null);
-                            }}
-                            className={`h-5 w-5 rounded-full border ${config?.[k]?.color === c ? 'ring-2 ring-[color:var(--foreground)]' : ''}`}
-                            style={{ backgroundColor: c, borderColor: 'var(--border)' }}
-                            type="button"
-                          />
-                        ))}
-                      </div>
-                    )}
+              <h2 className="text-lg font-semibold mb-4" style={{ color: "var(--foreground)" }}>
+                Special Labels
+              </h2>
+
+              {["awaiting", "review"].map((key) => (
+                <div
+                  key={key}
+                  className="relative flex items-center justify-between p-3 rounded-lg border mb-3"
+                  style={{
+                    backgroundColor: "var(--background)",
+                    borderColor: "var(--border)",
+                  }}
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-sm font-medium">{config[key].path}</span>
+                    <span
+                      className="px-2 py-0.5 rounded text-xs font-semibold"
+                      style={{ backgroundColor: config[key].color }}
+                    >
+                      {key}
+                    </span>
                   </div>
-                ))}
-              </div>
+
+                  <button
+                    className="h-7 px-3 rounded border text-xs"
+                    style={{ backgroundColor: config[key].color }}
+                    onClick={() =>
+                      setOpenColorPicker(
+                        openColorPicker === config[key].path
+                          ? null
+                          : config[key].path
+                      )
+                    }
+                  >
+                    Color
+                  </button>
+
+                  {openColorPicker === config[key].path && (
+                    <div
+                      className="absolute mt-10 left-0 right-0 p-2 rounded-lg shadow-lg flex flex-wrap gap-2 z-40"
+                      style={{
+                        backgroundColor: "var(--accent)",
+                        border: "1px solid var(--border)",
+                      }}
+                    >
+                      {COLOR_OPTIONS.map((c) => (
+                        <button
+                          key={c}
+                          className={`w-6 h-6 rounded-full border ${
+                            config[key].color === c
+                              ? "ring-2 ring-blue-500"
+                              : ""
+                          }`}
+                          style={{ backgroundColor: c }}
+                          onClick={() => {
+                            updateSpecialColor(key, c);
+                            setOpenColorPicker(null);
+                          }}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
             </section>
 
-            {/* Add New Label */}
-            <section>
-              <h2 className="text-lg font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Add Label</h2>
-              <AddLabelForm onAdd={addLabel} />
-            </section>
+            {/* Add Label */}
+            <AddLabelForm onAdd={addLabel} />
 
-            <div className="flex justify-end gap-3 pt-2">
-              <button
-                onClick={() => router.back()}
-                className="px-4 py-2 rounded-lg border font-medium hover:scale-105 transition-all"
-                style={{ backgroundColor: 'transparent', color: 'var(--foreground)', borderColor: 'var(--border)' }}>
-                Cancel
-              </button>
+            {/* Save Button */}
+            <div className="flex justify-end pt-4">
               <button
                 onClick={onSave}
                 disabled={saving}
-                className="px-5 py-2.5 rounded-lg font-semibold hover:scale-105 transition-all disabled:opacity-50"
-                style={{ backgroundColor: 'var(--background)', color: 'var(--foreground)' }}>
+                className="px-6 py-3 rounded-lg font-semibold shadow transition-all disabled:opacity-50"
+                style={{
+                  backgroundColor: "var(--background)",
+                  color: "var(--foreground)",
+                }}
+              >
                 {saving ? "Saving..." : "Save"}
               </button>
             </div>
@@ -291,7 +330,9 @@ export default function ManageTagsPage() {
   );
 }
 
-/* Add Label Form Component */
+/* -------------------------------
+   Add Label Component
+-------------------------------- */
 function AddLabelForm({ onAdd }) {
   const [parent, setParent] = useState("");
   const [child, setChild] = useState("");
@@ -299,45 +340,84 @@ function AddLabelForm({ onAdd }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="flex flex-wrap items-center gap-3">
-      <input
-        className="rounded-lg px-3 py-2 border flex-1 min-w-[200px]"
-        style={{ backgroundColor: 'var(--background)', color: 'var(--foreground)', borderColor: 'var(--border)' }}
-        placeholder="Parent label (optional)"
-        value={parent}
-        onChange={(e) => setParent(e.target.value)}
-      />
-      <input
-        className="rounded-lg px-3 py-2 border flex-1 min-w-[200px]"
-        style={{ backgroundColor: 'var(--background)', color: 'var(--foreground)', borderColor: 'var(--border)' }}
-        placeholder="Label name"
-        value={child}
-        onChange={(e) => setChild(e.target.value)}
-      />
-      <button
-        onClick={() => setOpen(!open)}
-        className="h-7 px-2 rounded border text-xs font-semibold"
-        style={{ backgroundColor: color, borderColor: 'var(--border)' }}
-        type="button">
-        Color
-      </button>
-      {open && (
-        <div className="absolute mt-12 p-2 rounded-lg shadow-lg flex flex-wrap gap-1 z-10"
-             style={{ backgroundColor: 'var(--accent)', border: '1px solid var(--border)' }}>
-          {COLOR_OPTIONS.map((c) => (
-            <button key={c} onClick={() => { setColor(c); setOpen(false); }}
-                    className={`h-5 w-5 rounded-full border ${color === c ? 'ring-2 ring-[color:var(--foreground)]' : ''}`}
-                    style={{ backgroundColor: c, borderColor: 'var(--border)' }} />
-          ))}
-        </div>
-      )}
-      <button
-        onClick={() => { if (child.trim()) onAdd(parent.trim(), child.trim(), color); setParent(""); setChild(""); }}
-        className="px-4 py-2 rounded-lg font-medium hover:scale-105 transition-all"
-        style={{ backgroundColor: 'var(--background)', color: 'var(--foreground)' }}
-        type="button">
-        Add
-      </button>
-    </div>
+    <section>
+      <h2 className="text-lg font-semibold mb-4" style={{ color: "var(--foreground)" }}>
+        Add new label
+      </h2>
+
+      <div className="flex flex-wrap items-center gap-3 relative">
+        <input
+          className="px-3 py-2 rounded-lg border"
+          style={{
+            backgroundColor: "var(--background)",
+            borderColor: "var(--border)",
+            color: "var(--foreground)",
+          }}
+          placeholder="Parent (optional)"
+          value={parent}
+          onChange={(e) => setParent(e.target.value)}
+        />
+
+        <input
+          className="px-3 py-2 rounded-lg border"
+          style={{
+            backgroundColor: "var(--background)",
+            borderColor: "var(--border)",
+            color: "var(--foreground)",
+          }}
+          placeholder="Label name"
+          value={child}
+          onChange={(e) => setChild(e.target.value)}
+        />
+
+        <button
+          className="h-8 px-3 rounded border text-xs"
+          style={{ backgroundColor: color }}
+          onClick={() => setOpen(!open)}
+        >
+          Color
+        </button>
+
+        {open && (
+          <div
+            className="absolute mt-12 p-2 rounded-lg shadow-lg flex flex-wrap gap-2 z-40"
+            style={{
+              backgroundColor: "var(--accent)",
+              border: "1px solid var(--border)",
+            }}
+          >
+            {COLOR_OPTIONS.map((c) => (
+              <button
+                key={c}
+                className={`w-6 h-6 rounded-full border ${
+                  color === c ? "ring-2 ring-blue-500" : ""
+                }`}
+                style={{ backgroundColor: c }}
+                onClick={() => {
+                  setColor(c);
+                  setOpen(false);
+                }}
+              />
+            ))}
+          </div>
+        )}
+
+        <button
+          onClick={() => {
+            if (!child.trim()) return;
+            onAdd(parent.trim(), child.trim(), color);
+            setParent("");
+            setChild("");
+          }}
+          className="px-4 py-2 rounded-lg font-medium"
+          style={{
+            backgroundColor: "var(--background)",
+            color: "var(--foreground)",
+          }}
+        >
+          Add
+        </button>
+      </div>
+    </section>
   );
 }
